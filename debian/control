@@ -1,0 +1,12 @@
+Source: ros-hydro-asmach-tutorials
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-actionlib, ros-hydro-actionlib-msgs, ros-hydro-asmach, ros-hydro-catkin, ros-hydro-message-generation, ros-hydro-rospy, ros-hydro-smach-ros, ros-hydro-turtlesim
+Homepage: http://ros.org/wiki/smach_tutorials
+Standards-Version: 3.9.2
+
+Package: ros-hydro-asmach-tutorials
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-actionlib, ros-hydro-actionlib-msgs, ros-hydro-asmach, ros-hydro-rospy, ros-hydro-smach-ros, ros-hydro-turtlesim
+Description: This package containes numerous examples of how to use SMACH. See the examples directory.
