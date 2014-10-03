@@ -1,0 +1,8 @@
+ros-hydro-asmach (1.0.4-0precise) precise; urgency=high
+
+  * Added asmach package
+  * Contributors: TheDash
+
+ -- Dash <dash@clearpathrobotics.com>  Fri, 03 Oct 2014 04:00:00 -0000
+
+
