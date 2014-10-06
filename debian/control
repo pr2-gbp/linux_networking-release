@@ -1,0 +1,12 @@
+Source: ros-hydro-linksys-access-point
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-access-point-control, ros-hydro-catkin, ros-hydro-dynamic-reconfigure, ros-hydro-ieee80211-channels, ros-hydro-rospy
+Homepage: http://ros.org/wiki/linksys_access_point
+Standards-Version: 3.9.2
+
+Package: ros-hydro-linksys-access-point
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-access-point-control, ros-hydro-dynamic-reconfigure, ros-hydro-ieee80211-channels, ros-hydro-rospy
+Description: A ROS node that controls a Linksys access point with a Linksys WRT610n-compatible web interface.
