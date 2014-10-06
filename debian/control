@@ -1,0 +1,12 @@
+Source: ros-hydro-multi-interface-roam
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-asmach, ros-hydro-catkin, ros-hydro-diagnostic-msgs, ros-hydro-dynamic-reconfigure, ros-hydro-ieee80211-channels, ros-hydro-network-monitor-udp, ros-hydro-pr2-msgs, ros-hydro-rospy, ros-hydro-std-msgs
+Homepage: http://ros.org/wiki/multi_interface_roam
+Standards-Version: 3.9.2
+
+Package: ros-hydro-multi-interface-roam
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-asmach, ros-hydro-diagnostic-msgs, ros-hydro-dynamic-reconfigure, ros-hydro-ieee80211-channels, ros-hydro-network-monitor-udp, ros-hydro-pr2-msgs, ros-hydro-rospy, ros-hydro-std-msgs
+Description: sdsdddsdsds
