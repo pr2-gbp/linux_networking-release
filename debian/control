@@ -1,0 +1,12 @@
+Source: ros-hydro-ddwrt-access-point
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-access-point-control, ros-hydro-catkin, ros-hydro-dynamic-reconfigure, ros-hydro-ieee80211-channels, ros-hydro-rospy
+Homepage: http://ros.org/wiki/ddwrt_access_point
+Standards-Version: 3.9.2
+
+Package: ros-hydro-ddwrt-access-point
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-access-point-control, ros-hydro-dynamic-reconfigure, ros-hydro-ieee80211-channels, ros-hydro-rospy
+Description: A ROS node that controls a Linksys WRT610Nv2 access point with a dd-wrt firmware. Other access points models/dd-wrt versions may be compatible as long as the web interface is identical.
