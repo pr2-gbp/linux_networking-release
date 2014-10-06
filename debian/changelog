@@ -1,0 +1,21 @@
+ros-hydro-linux-networking (1.0.5-0raring) raring; urgency=high
+
+  * Added run_depends for metapackage
+  * Contributors: TheDash
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Mon, 06 Oct 2014 04:00:00 -0000
+
+ros-hydro-linux-networking (1.0.4-0raring) raring; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Fri, 03 Oct 2014 04:00:00 -0000
+
+ros-hydro-linux-networking (1.0.3-0raring) raring; urgency=high
+
+  * Added metapackage
+  * Contributors: TheDash
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Fri, 03 Oct 2014 04:00:00 -0000
+
+

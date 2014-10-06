@@ -1,0 +1,12 @@
+Source: ros-hydro-linux-networking
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-catkin
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-hydro-linux-networking
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-access-point-control, ros-hydro-asmach, ros-hydro-asmach-tutorials, ros-hydro-ddwrt-access-point, ros-hydro-hostapd-access-point, ros-hydro-ieee80211-channels, ros-hydro-linksys-access-point, ros-hydro-multi-interface-roam, ros-hydro-network-control-tests, ros-hydro-network-detector, ros-hydro-network-monitor-udp, ros-hydro-network-traffic-control
+Description: The linux_networking package
