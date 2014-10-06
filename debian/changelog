@@ -1,0 +1,14 @@
+ros-hydro-asmach (1.0.5-0raring) raring; urgency=high
+
+
+
+ -- Dash <dash@clearpathrobotics.com>  Mon, 06 Oct 2014 04:00:00 -0000
+
+ros-hydro-asmach (1.0.4-0raring) raring; urgency=high
+
+  * Added asmach package
+  * Contributors: TheDash
+
+ -- Dash <dash@clearpathrobotics.com>  Fri, 03 Oct 2014 04:00:00 -0000
+
+
