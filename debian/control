@@ -1,0 +1,12 @@
+Source: ros-hydro-network-control-tests
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-hydro-access-point-control, ros-hydro-catkin, ros-hydro-ddwrt-access-point, ros-hydro-dynamic-reconfigure, ros-hydro-hostapd-access-point, ros-hydro-linksys-access-point, ros-hydro-network-monitor-udp, ros-hydro-network-traffic-control, ros-hydro-rostest
+Homepage: http://ros.org/wiki/network_control_tests
+Standards-Version: 3.9.2
+
+Package: ros-hydro-network-control-tests
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-hydro-access-point-control, ros-hydro-ddwrt-access-point, ros-hydro-dynamic-reconfigure, ros-hydro-hostapd-access-point, ros-hydro-linksys-access-point, ros-hydro-network-monitor-udp, ros-hydro-network-traffic-control, ros-hydro-rostest
+Description: Test suite for the packages that are part of the &quot;WiFi Test Setup&quot; project: network_monitor_udp, network_traffic_control, hostapd_access_point, linksys_access_point, ddwrt_access_point.
