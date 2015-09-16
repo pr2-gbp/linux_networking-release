@@ -58,10 +58,8 @@ catkin_package(
 )
 
 
-install(PROGRAMS /src/access_point_control/__init__.py  USE_SOURCE_PERMISSIONS 
- DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-install(DIRECTORY src cfg access_point_control  
+install(DIRECTORY src cfg  
  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 
