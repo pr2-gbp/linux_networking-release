@@ -1,0 +1,12 @@
+Source: ros-indigo-linux-networking
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-indigo-linux-networking
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-access-point-control, ros-indigo-asmach, ros-indigo-asmach-tutorials, ros-indigo-ddwrt-access-point, ros-indigo-hostapd-access-point, ros-indigo-ieee80211-channels, ros-indigo-linksys-access-point, ros-indigo-multi-interface-roam, ros-indigo-network-control-tests, ros-indigo-network-detector, ros-indigo-network-monitor-udp, ros-indigo-network-traffic-control
+Description: The linux_networking package
