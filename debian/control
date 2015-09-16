@@ -1,0 +1,12 @@
+Source: ros-indigo-multi-interface-roam
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-asmach, ros-indigo-catkin, ros-indigo-diagnostic-msgs, ros-indigo-dynamic-reconfigure, ros-indigo-ieee80211-channels, ros-indigo-network-monitor-udp, ros-indigo-pr2-msgs, ros-indigo-rospy, ros-indigo-std-msgs
+Homepage: http://ros.org/wiki/multi_interface_roam
+Standards-Version: 3.9.2
+
+Package: ros-indigo-multi-interface-roam
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-asmach, ros-indigo-diagnostic-msgs, ros-indigo-dynamic-reconfigure, ros-indigo-ieee80211-channels, ros-indigo-network-monitor-udp, ros-indigo-pr2-msgs, ros-indigo-rospy, ros-indigo-std-msgs
+Description: sdsdddsdsds
