@@ -1,0 +1,12 @@
+Source: ros-indigo-hostapd-access-point
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-access-point-control, ros-indigo-catkin, ros-indigo-dynamic-reconfigure, ros-indigo-ieee80211-channels, ros-indigo-rospy
+Homepage: http://ros.org/wiki/hostapd_access_point
+Standards-Version: 3.9.2
+
+Package: ros-indigo-hostapd-access-point
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-access-point-control, ros-indigo-dynamic-reconfigure, ros-indigo-ieee80211-channels, ros-indigo-rospy
+Description: A ROS node that controls a hostapd-based access point. It is mainly intended for use with a wireless network adapter running in master mode. It implements the dynamic_reconfigure interface defined in the [[access_point_control]] package.
