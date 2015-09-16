@@ -1,0 +1,12 @@
+Source: ros-indigo-asmach-tutorials
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-actionlib, ros-indigo-actionlib-msgs, ros-indigo-asmach, ros-indigo-catkin, ros-indigo-message-generation, ros-indigo-rospy, ros-indigo-smach-ros, ros-indigo-turtlesim
+Homepage: http://ros.org/wiki/smach_tutorials
+Standards-Version: 3.9.2
+
+Package: ros-indigo-asmach-tutorials
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-actionlib, ros-indigo-actionlib-msgs, ros-indigo-asmach, ros-indigo-rospy, ros-indigo-smach-ros, ros-indigo-turtlesim
+Description: This package containes numerous examples of how to use SMACH. See the examples directory.
