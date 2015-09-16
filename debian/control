@@ -1,0 +1,12 @@
+Source: ros-indigo-network-control-tests
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-access-point-control, ros-indigo-catkin, ros-indigo-ddwrt-access-point, ros-indigo-dynamic-reconfigure, ros-indigo-hostapd-access-point, ros-indigo-linksys-access-point, ros-indigo-network-monitor-udp, ros-indigo-network-traffic-control, ros-indigo-rostest
+Homepage: http://ros.org/wiki/network_control_tests
+Standards-Version: 3.9.2
+
+Package: ros-indigo-network-control-tests
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-access-point-control, ros-indigo-ddwrt-access-point, ros-indigo-dynamic-reconfigure, ros-indigo-hostapd-access-point, ros-indigo-linksys-access-point, ros-indigo-network-monitor-udp, ros-indigo-network-traffic-control, ros-indigo-rostest
+Description: Test suite for the packages that are part of the &quot;WiFi Test Setup&quot; project: network_monitor_udp, network_traffic_control, hostapd_access_point, linksys_access_point, ddwrt_access_point.
