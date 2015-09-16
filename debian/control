@@ -1,0 +1,12 @@
+Source: ros-indigo-ddwrt-access-point
+Section: misc
+Priority: extra
+Maintainer: Dash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-access-point-control, ros-indigo-catkin, ros-indigo-dynamic-reconfigure, ros-indigo-ieee80211-channels, ros-indigo-rospy
+Homepage: http://ros.org/wiki/ddwrt_access_point
+Standards-Version: 3.9.2
+
+Package: ros-indigo-ddwrt-access-point
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-access-point-control, ros-indigo-dynamic-reconfigure, ros-indigo-ieee80211-channels, ros-indigo-rospy
+Description: A ROS node that controls a Linksys WRT610Nv2 access point with a dd-wrt firmware. Other access points models/dd-wrt versions may be compatible as long as the web interface is identical.
