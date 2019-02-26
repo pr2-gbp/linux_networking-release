@@ -1,0 +1,12 @@
+Source: ros-kinetic-network-detector
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin, ros-kinetic-roscpp, ros-kinetic-std-msgs
+Homepage: http://ros.org/wiki/detect_running_network_interface
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-network-detector
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-roscpp, ros-kinetic-std-msgs
+Description: A ROS node that watches a given network interface and publishes whether it is both UP and RUNNING (indicating that a cable is plugged into it and communication is happening, for instance) or not.
