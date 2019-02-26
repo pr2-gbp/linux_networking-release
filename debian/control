@@ -1,0 +1,12 @@
+Source: ros-kinetic-linux-networking
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-catkin
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-linux-networking
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-access-point-control, ros-kinetic-asmach, ros-kinetic-asmach-tutorials, ros-kinetic-ddwrt-access-point, ros-kinetic-hostapd-access-point, ros-kinetic-ieee80211-channels, ros-kinetic-linksys-access-point, ros-kinetic-multi-interface-roam, ros-kinetic-network-control-tests, ros-kinetic-network-detector, ros-kinetic-network-monitor-udp, ros-kinetic-network-traffic-control
+Description: The linux_networking package
