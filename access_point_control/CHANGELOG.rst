@@ -2,6 +2,9 @@
 Changelog for package access_point_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.12 (2019-02-26)
+-------------------
+
 1.0.9 (2014-10-14)
 ------------------
 * Access_point_control catkin_make install fix

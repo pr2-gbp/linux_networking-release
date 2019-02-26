@@ -2,6 +2,11 @@
 Changelog for package network_monitor_udp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.12 (2019-02-26)
+-------------------
+* changes to cmakelists files to make packages compile in kinetic
+* Contributors: David Feil-Seifer
+
 1.0.9 (2014-10-14)
 ------------------
 

@@ -1,12 +1,12 @@
 <package>
   <name>hostapd_access_point</name>
-  <version>1.0.10</version>
+  <version>1.0.12</version>
   <description>A ROS node that controls a hostapd-based access
     point. It is mainly intended for use with a wireless 
     network adapter running in master mode. It implements 
     the dynamic_reconfigure interface defined
     in the [[access_point_control]] package.</description>
-  <maintainer email="dash@clearpathrobotics.com">Dash</maintainer>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 
   <license>BSD</license>
 

@@ -1,10 +1,10 @@
 <package>
   <name>ddwrt_access_point</name>
-  <version>1.0.10</version>
+  <version>1.0.12</version>
   <description>A ROS node that controls a Linksys WRT610Nv2 access point with
     a dd-wrt firmware. Other access points models/dd-wrt versions
     may be compatible as long as the web interface is identical.</description>
-  <maintainer email="dash@clearpathrobotics.com">Dash</maintainer>
+  <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 
   <license>BSD</license>
 
