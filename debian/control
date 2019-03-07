@@ -1,0 +1,12 @@
+Source: ros-melodic-ieee80211-channels
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin
+Homepage: http://ros.org/wiki/ieee80211_channels
+Standards-Version: 3.9.2
+
+Package: ros-melodic-ieee80211-channels
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: This package provides mapping from frequencies to IEEE802.11 channels and vice-versa.
