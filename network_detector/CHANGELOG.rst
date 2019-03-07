@@ -2,6 +2,9 @@
 Changelog for package network_detector
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.0.13 (2019-03-06)
+-------------------
+
 1.0.12 (2019-02-26)
 -------------------
 * changes to cmakelists files to make packages compile in kinetic
