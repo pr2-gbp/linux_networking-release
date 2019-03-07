@@ -1,0 +1,13 @@
+Source: ros-melodic-ddwrt-access-point
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-access-point-control, ros-melodic-catkin, ros-melodic-dynamic-reconfigure, ros-melodic-ieee80211-channels, ros-melodic-rospy
+Homepage: http://ros.org/wiki/ddwrt_access_point
+Standards-Version: 3.9.2
+
+Package: ros-melodic-ddwrt-access-point
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-access-point-control, ros-melodic-dynamic-reconfigure, ros-melodic-ieee80211-channels, ros-melodic-rospy
+Description: A ROS node that controls a Linksys WRT610Nv2 access point with a dd-wrt firmware.
+ Other access points models/dd-wrt versions may be compatible as long as the web interface is identical.
