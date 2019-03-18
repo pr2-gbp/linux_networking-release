@@ -1,0 +1,13 @@
+Source: ros-kinetic-network-monitor-udp
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-actionlib, ros-kinetic-actionlib-msgs, ros-kinetic-catkin, ros-kinetic-diagnostic-msgs, ros-kinetic-message-generation, ros-kinetic-rospy
+Homepage: http://ros.org/wiki/network_monitor_udp
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-network-monitor-udp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-actionlib, ros-kinetic-actionlib-msgs, ros-kinetic-diagnostic-msgs, ros-kinetic-message-runtime, ros-kinetic-rospy
+Description: Facilities to monitor a network connection by sending UDP packets from a client to a server, which bounces them back to the client.
+ The client collects statistics on latency and loss. The server is a C standalone utility or a ROS node. The client can be a ROS node, a standalone utility or a python class.
