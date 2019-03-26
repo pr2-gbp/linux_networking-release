@@ -1,0 +1,12 @@
+Source: ros-kinetic-multi-interface-roam
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-kinetic-asmach, ros-kinetic-catkin, ros-kinetic-diagnostic-msgs, ros-kinetic-dynamic-reconfigure, ros-kinetic-ieee80211-channels, ros-kinetic-network-monitor-udp, ros-kinetic-pr2-msgs, ros-kinetic-rospy, ros-kinetic-std-msgs
+Homepage: http://ros.org/wiki/multi_interface_roam
+Standards-Version: 3.9.2
+
+Package: ros-kinetic-multi-interface-roam
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-kinetic-asmach, ros-kinetic-diagnostic-msgs, ros-kinetic-dynamic-reconfigure, ros-kinetic-ieee80211-channels, ros-kinetic-network-monitor-udp, ros-kinetic-pr2-msgs, ros-kinetic-rospy, ros-kinetic-std-msgs
+Description: sdsdddsdsds
