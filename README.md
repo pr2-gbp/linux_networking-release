@@ -1,3 +1,39 @@
+## linux_networking (kinetic) - 1.0.15-0
+
+The packages in the `linux_networking` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release --track kinetic --ros-distro kinetic linux_networking` on `Tue, 26 Mar 2019 07:30:53 -0000`
+
+These packages were released:
+- `access_point_control`
+- `asmach`
+- `asmach_tutorials`
+- `ddwrt_access_point`
+- `hostapd_access_point`
+- `ieee80211_channels`
+- `linksys_access_point`
+- `linux_networking`
+- `multi_interface_roam`
+- `network_control_tests`
+- `network_detector`
+- `network_monitor_udp`
+- `network_traffic_control`
+
+Version of package(s) in repository `linux_networking`:
+
+- upstream repository: https://github.com/PR2/linux_networking.git
+- release repository: https://github.com/pr2-gbp/linux_networking-release.git
+- rosdistro version: `1.0.14-0`
+- old version: `1.0.14-0`
+- new version: `1.0.15-0`
+
+Versions of tools used:
+
+- bloom version: `0.7.2`
+- catkin_pkg version: `0.4.10`
+- rosdep version: `0.15.1`
+- rosdistro version: `0.7.2`
+- vcstools version: `0.1.40`
+
+
 ## linux_networking (kinetic) - 1.0.14-0
 
 The packages in the `linux_networking` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release --track kinetic --ros-distro kinetic linux_networking --edit` on `Mon, 18 Mar 2019 19:02:00 -0000`
