@@ -1,0 +1,12 @@
+Source: ros-melodic-multi-interface-roam
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-asmach, ros-melodic-catkin, ros-melodic-diagnostic-msgs, ros-melodic-dynamic-reconfigure, ros-melodic-ieee80211-channels, ros-melodic-network-monitor-udp, ros-melodic-pr2-msgs, ros-melodic-rospy, ros-melodic-std-msgs
+Homepage: http://ros.org/wiki/multi_interface_roam
+Standards-Version: 3.9.2
+
+Package: ros-melodic-multi-interface-roam
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-asmach, ros-melodic-diagnostic-msgs, ros-melodic-dynamic-reconfigure, ros-melodic-ieee80211-channels, ros-melodic-network-monitor-udp, ros-melodic-pr2-msgs, ros-melodic-rospy, ros-melodic-std-msgs
+Description: sdsdddsdsds
