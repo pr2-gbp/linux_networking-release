@@ -1,0 +1,12 @@
+Source: ros-lunar-linux-networking
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-catkin
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-lunar-linux-networking
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-access-point-control, ros-lunar-asmach, ros-lunar-asmach-tutorials, ros-lunar-ddwrt-access-point, ros-lunar-hostapd-access-point, ros-lunar-ieee80211-channels, ros-lunar-linksys-access-point, ros-lunar-multi-interface-roam, ros-lunar-network-control-tests, ros-lunar-network-detector, ros-lunar-network-monitor-udp, ros-lunar-network-traffic-control
+Description: The linux_networking package
