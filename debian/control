@@ -1,0 +1,13 @@
+Source: ros-lunar-asmach-tutorials
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-actionlib, ros-lunar-actionlib-msgs, ros-lunar-asmach, ros-lunar-catkin, ros-lunar-message-generation, ros-lunar-rospy, ros-lunar-smach-ros, ros-lunar-turtlesim
+Homepage: http://ros.org/wiki/smach_tutorials
+Standards-Version: 3.9.2
+
+Package: ros-lunar-asmach-tutorials
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-actionlib, ros-lunar-actionlib-msgs, ros-lunar-asmach, ros-lunar-rospy, ros-lunar-smach-ros, ros-lunar-turtlesim
+Description: This package containes numerous examples of how to use SMACH.
+ See the examples directory.
