@@ -1,0 +1,12 @@
+Source: ros-lunar-network-control-tests
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-lunar-access-point-control, ros-lunar-catkin, ros-lunar-ddwrt-access-point, ros-lunar-dynamic-reconfigure, ros-lunar-hostapd-access-point, ros-lunar-linksys-access-point, ros-lunar-network-monitor-udp, ros-lunar-network-traffic-control, ros-lunar-rostest
+Homepage: http://ros.org/wiki/network_control_tests
+Standards-Version: 3.9.2
+
+Package: ros-lunar-network-control-tests
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-lunar-access-point-control, ros-lunar-ddwrt-access-point, ros-lunar-dynamic-reconfigure, ros-lunar-hostapd-access-point, ros-lunar-linksys-access-point, ros-lunar-network-monitor-udp, ros-lunar-network-traffic-control, ros-lunar-rostest
+Description: Test suite for the packages that are part of the &quot;WiFi Test Setup&quot; project: network_monitor_udp, network_traffic_control, hostapd_access_point, linksys_access_point, ddwrt_access_point.
