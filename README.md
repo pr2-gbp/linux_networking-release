@@ -1,3 +1,39 @@
+## linux_networking (melodic) - 1.0.16-1
+
+The packages in the `linux_networking` repository were released into the `melodic` distro by running `/usr/bin/bloom-release linux_networking --rosdistro melodic --track melodic` on `Fri, 08 Nov 2019 12:41:21 -0000`
+
+These packages were released:
+- `access_point_control`
+- `asmach`
+- `asmach_tutorials`
+- `ddwrt_access_point`
+- `hostapd_access_point`
+- `ieee80211_channels`
+- `linksys_access_point`
+- `linux_networking`
+- `multi_interface_roam`
+- `network_control_tests`
+- `network_detector`
+- `network_monitor_udp`
+- `network_traffic_control`
+
+Version of package(s) in repository `linux_networking`:
+
+- upstream repository: https://github.com/PR2/linux_networking.git
+- release repository: https://github.com/pr2-gbp/linux_networking-release.git
+- rosdistro version: `1.0.13-2`
+- old version: `1.0.15-0`
+- new version: `1.0.16-1`
+
+Versions of tools used:
+
+- bloom version: `0.8.0`
+- catkin_pkg version: `0.4.12`
+- rosdep version: `0.15.2`
+- rosdistro version: `0.7.4`
+- vcstools version: `0.1.42`
+
+
 ## linux_networking (lunar) - 1.0.15-0
 
 The packages in the `linux_networking` repository were released into the `lunar` distro by running `/usr/bin/bloom-release --rosdistro lunar --track lunar linux_networking --edit` on `Sat, 30 Mar 2019 22:50:40 -0000`
