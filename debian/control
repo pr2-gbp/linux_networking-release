@@ -1,0 +1,12 @@
+Source: ros-melodic-linux-networking
+Section: misc
+Priority: extra
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-melodic-linux-networking
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-access-point-control, ros-melodic-asmach, ros-melodic-asmach-tutorials, ros-melodic-ddwrt-access-point, ros-melodic-hostapd-access-point, ros-melodic-ieee80211-channels, ros-melodic-linksys-access-point, ros-melodic-multi-interface-roam, ros-melodic-network-control-tests, ros-melodic-network-detector, ros-melodic-network-monitor-udp, ros-melodic-network-traffic-control
+Description: The linux_networking package
