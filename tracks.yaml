@@ -105,10 +105,10 @@ tracks:
     - git-bloom-generate -y rosrpm --prefix release/:{ros_distro} :{ros_distro} -i
       :{release_inc}
     devel_branch: melodic-devel
-    last_version: 1.0.15
+    last_version: 1.0.16
     name: linux_networking
     patches: null
-    release_inc: '0'
+    release_inc: '1'
     release_repo_url: null
     release_tag: :{version}
     ros_distro: melodic
