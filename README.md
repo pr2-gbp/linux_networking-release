@@ -1,3 +1,39 @@
+## linux_networking (noetic) - 1.1.0-1
+
+The packages in the `linux_networking` repository were released into the `noetic` distro by running `/usr/bin/bloom-release linux_networking --rosdistro noetic --track noetic` on `Tue, 02 Mar 2021 01:32:38 -0000`
+
+These packages were released:
+- `access_point_control`
+- `asmach`
+- `asmach_tutorials`
+- `ddwrt_access_point`
+- `hostapd_access_point`
+- `ieee80211_channels`
+- `linksys_access_point`
+- `linux_networking`
+- `multi_interface_roam`
+- `network_control_tests`
+- `network_detector`
+- `network_monitor_udp`
+- `network_traffic_control`
+
+Version of package(s) in repository `linux_networking`:
+
+- upstream repository: https://github.com/PR2/linux_networking.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `1.1.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.10.0`
+- catkin_pkg version: `0.4.23`
+- rosdep version: `0.20.0`
+- rosdistro version: `0.8.3`
+- vcstools version: `0.1.42`
+
+
 ## linux_networking (melodic) - 1.0.16-1
 
 The packages in the `linux_networking` repository were released into the `melodic` distro by running `/usr/bin/bloom-release linux_networking --rosdistro melodic --track melodic` on `Fri, 08 Nov 2019 12:41:21 -0000`
