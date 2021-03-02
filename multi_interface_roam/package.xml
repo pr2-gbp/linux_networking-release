@@ -1,6 +1,6 @@
-<package>
+<package format="3">
   <name>multi_interface_roam</name>
-  <version>1.0.16</version>
+  <version>1.1.0</version>
   <description>sdsdddsdsds</description>
   <maintainer email="dash@clearpathrobotics.com">Devon Ash</maintainer>
 
@@ -27,15 +27,16 @@
   <build_depend>ieee80211_channels</build_depend>
 
   <!-- Dependencies needed after this package is compiled. -->
-  <run_depend>rospy</run_depend>
-  <run_depend>network_monitor_udp</run_depend>
-  <run_depend>std_msgs</run_depend>
-  <run_depend>diagnostic_msgs</run_depend>
-  <run_depend>pr2_msgs</run_depend>
-  <run_depend>asmach</run_depend>
-  <run_depend>dynamic_reconfigure</run_depend>
-  <run_depend>ieee80211_channels</run_depend>
-  <run_depend>python-twisted-core</run_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>network_monitor_udp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>diagnostic_msgs</exec_depend>
+  <exec_depend>pr2_msgs</exec_depend>
+  <exec_depend>asmach</exec_depend>
+  <exec_depend>dynamic_reconfigure</exec_depend>
+  <exec_depend>ieee80211_channels</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 2">python-twisted-core</exec_depend>
+  <exec_depend condition="$ROS_PYTHON_VERSION == 3">python3-twisted</exec_depend>
 
   <!-- Dependencies needed only for running tests. -->
   <!-- <test_depend>rospy</test_depend> -->

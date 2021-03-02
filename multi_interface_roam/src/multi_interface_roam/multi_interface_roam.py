@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
+
 # TODO To cleanup: 
 # - Mark on ping packets in not being used.
 # - Most gateway packets should go through the tunnel.
@@ -132,10 +134,10 @@ def flushiprule(rule_prio, leave_one = False):
 def safe_shutdown(method, *args, **nargs):
     try:
         method(*args, **nargs)
-    except Exception, e:
-        print "Caught exception while shutting down instance.", method
+    except Exception as e:
+        print("Caught exception while shutting down instance.", method)
         traceback.print_exc(10)
-        print
+        print()
 
 class System:
     def __init__(self, arg):
@@ -197,7 +199,7 @@ class CommandWithOutput(threading.Thread):
                     #print "Exiting CommandWithOutput", self.proc.pid, self.proc_args
                     try:
                         self.proc.send_signal(signal.SIGINT)
-                    except OSError, e:
+                    except OSError as e:
                         if str(e).find('[Errno 3]') == -1:
                             raise
                     #print "Starting Communicate", self.proc_args
@@ -243,12 +245,12 @@ class CommandWithOutput(threading.Thread):
                         #sys.stdout.flush()
                         try:
                             self.got_line(line)
-                        except Exception, e:
+                        except Exception as e:
                             self.console_logger.fatal("Caught exception in CommandWithOutput.run: %s"%str(e))
                             raise # FIXME Remove this?
         except: # FIXME Be more persistent?
             traceback.print_exc(10)
-            print
+            print()
             self.console_logger.fatal("Command with output triggering shutdown after exception.")
             os.kill(os.getpid(), signal.SIGINT)
             raise
@@ -276,10 +278,10 @@ class WpaSupplicant(CommandWithOutput):
         System('wpa_cli -p /var/run/wpa_supplicant -i %s %s'%(self.iface, cmd))
     
     def restart(self):
-        print >> sys.stderr, "Restarting supplicant on %s"%self.iface
+        print("Restarting supplicant on %s"%self.iface, file=sys.stderr)
         try:
             self.proc.send_signal(signal.SIGINT) 
-        except OSError, e:
+        except OSError as e:
             if str(e).find('[Errno 3]') == -1:
                 raise
 
@@ -322,7 +324,7 @@ class DhcpClient(CommandWithOutput):
     def release(self):
         try:
             self.proc.send_signal(signal.SIGUSR2)
-        except OSError, e:
+        except OSError as e:
             if str(e).find('[Errno 3]') == -1:
                 raise
 
@@ -361,7 +363,7 @@ class NetlinkMonitor(CommandWithOutput):
             callback(self.link_state[iface])
 
     def register_addr(self, iface, callback):
-        print "register_addr", iface
+        print("register_addr", iface)
         if iface not in self.addr_callbacks:
             self.addr_callbacks[iface] = []
         with self.lock:
@@ -400,7 +402,7 @@ class NetlinkMonitor(CommandWithOutput):
                         if self.cur_iface in self.link_callbacks:
                             for callback in self.link_callbacks[self.cur_iface]:
                                 callback(link_state)
-                        print "********************Link change", self.cur_iface, link_state # FIXME Remove this.
+                        print("********************Link change", self.cur_iface, link_state) # FIXME Remove this.
                     #else:
                     #    print "********************No link change", self.cur_iface, link_state
                 except ValueError:
@@ -417,7 +419,7 @@ class NetlinkMonitor(CommandWithOutput):
                         addr_state = tokens[addr_idx + 1].split('/')
                     full_iface = tokens[-1]
                     if full_iface not in self.addr_state or self.addr_state[full_iface] != addr_state:
-                        print "********************Address change", full_iface, addr_state # FIXME Remove this.
+                        print("********************Address change", full_iface, addr_state) # FIXME Remove this.
                         self.addr_state[full_iface] = addr_state
                         if full_iface in self.addr_callbacks:
                             for callback in self.addr_callbacks[full_iface]:
@@ -427,10 +429,10 @@ class NetlinkMonitor(CommandWithOutput):
                 except ValueError:
                     #print "********************No addr", self.cur_iface
                     pass
-            except Exception, e:
-                print "Caught exception in NetlinkMonitor.run:", e
+            except Exception as e:
+                print("Caught exception in NetlinkMonitor.run:", e)
                 traceback.print_exc(10)
-                print
+                print()
 
 class NetworkConnection:
     def __init__(self, name, iface, config, tableid, pingtarget):
@@ -459,12 +461,12 @@ class NetworkConnection:
             # being properly considered.
             self.set_routes(addr, netbits) 
             try:
-                print 'start_monitor', addr
+                print('start_monitor', addr)
                 self.udp_monitor.start_monitor((addr, 0))
             except:
                 pass # Address gets set twice (first address then netmask). The first time often results in a bind failure.
         elif self.status == NOCHECK:
-            print 'stop_monitor'
+            print('stop_monitor')
             self.status = NOIP
             self.udp_monitor.stop_monitor()
     
@@ -524,9 +526,9 @@ class StaticRoute(NetworkConnection):
         System("ip route flush table %i"%self.tableid)
         try:
             gatewayip = socket.gethostbyname(self.gateway)
-        except socket.gaierror, e:
+        except socket.gaierror as e:
             # TODO Should I bail out at this point?
-            print >> sys.stderr, "Error resolving gateway host %s. Connection self.name will not work."%self.gateway
+            print("Error resolving gateway host %s. Connection self.name will not work."%self.gateway, file=sys.stderr)
             return
         System("ip route add table %i default dev %s via %s src %s onlink"%(self.tableid, self.iface, gatewayip, addr))
         System("ip route add table %i %s dev %s src %s"%(self.tableid, gatewayip, self.iface, addr))
@@ -561,7 +563,7 @@ class DhcpInterface(NetworkConnection):
     def update1(self):
         time_to_timeout = self.timeout_time - time.time()
         if time_to_timeout < 0:
-            print "Interface", self.name, "timed out."
+            print("Interface", self.name, "timed out.")
             self.timed_out_time = time.time()
             self.startover()
 
@@ -597,11 +599,11 @@ class DhcpInterface(NetworkConnection):
         System("ip route add table %i default dev %s via %s src %s onlink"%(self.tableid, self.iface, self.gateway, addr))
         net = ipaddr.IPv4Network("%s/%s"%(addr,netbits))
         #self.network = "%s/%s"%(net.network,net.prefixlen)
-        print("ip route add table %i %s/%s dev %s src %s"%(self.tableid, net.network, net.prefixlen, self.iface, addr))
+        print(("ip route add table %i %s/%s dev %s src %s"%(self.tableid, net.network, net.prefixlen, self.iface, addr)))
         System("ip route add table %i %s/%s dev %s src %s"%(self.tableid, net.network, net.prefixlen, self.iface, addr))
     
     def bound(self, iface, ip, netmask, gateway):
-        print "Bound!", self.status
+        print("Bound!", self.status)
         #if self.is_bound == True:
         #    self.deconfigured(iface)
         self.increase_timeout(self.start_over_timeout)
@@ -618,7 +620,7 @@ class DhcpInterface(NetworkConnection):
         #System("ifconfig %s %s netmask %s"%(iface,ip,netmask))
         System("arping -q -c 1 -A -I %s %s"%(iface,ip))
         ConfigureRpFilter(iface) # FIXME Do this here in case the interface was unplugged and replugged.
-        print "Bound done!", self.status
+        print("Bound done!", self.status)
 
     def startover(self): # Deconfigure the interface and start over from scratch
         flushiprule(self.tableid)
@@ -693,20 +695,20 @@ class WirelessInterface(DhcpInterface):
         try:
             self.essid = self.wifi.getEssid()
             self.diags.append(('ESSID', self.essid))
-        except Exception, e:
+        except Exception as e:
             if self.status != NOLINK:
                 traceback.print_exc(10)
-                print
+                print()
             self.diags.append(('ESSID', 'Error collecting data.'))
             self.essid = "###ERROR-COLLECTING-DATA###"
 
         try:
             self.bssid = self.wifi.getAPaddr()
             self.diags.append(('BSSID', self.bssid))
-        except Exception, e:
+        except Exception as e:
             if self.status != NOLINK:
                 traceback.print_exc(10)
-                print
+                print()
             self.bssid = "00:00:00:00:00:00"
             self.diags.append(('BSSID', 'Error collecting data.'))
 
@@ -714,20 +716,20 @@ class WirelessInterface(DhcpInterface):
             self.wifi_txpower = 10**(self.wifi.wireless_info.getTXPower().value/10.)
             self.diags.append(('TX Power (mW)', self.wifi_txpower))
             self.wifi_txpower = "%.1f mW"%self.wifi_txpower
-        except Exception, e:
+        except Exception as e:
             if str(e).find("Operation not supported") == -1 and self.status != NOLINK:
                 traceback.print_exc(10)
-                print
+                print()
             self.diags.append(('TX Power (mW)', 'Error collecting data.'))
             self.wifi_txpower = "unknown" 
 
         try:
             self.wifi_frequency = self.wifi.wireless_info.getFrequency().getFrequency()
             self.diags.append(('Frequency (Gz)', "%.4f"%(self.wifi_frequency/1e9)))
-        except Exception, e:
+        except Exception as e:
             if self.status != NOLINK:
                 traceback.print_exc(10)
-                print
+                print()
             self.wifi_frequency = 0
             self.diags.append(('Frequency', 'Error collecting data.'))
 
@@ -746,12 +748,12 @@ class WirelessInterface(DhcpInterface):
                 self.wifi_quality = quality
                 self.reliability = quality
                 got_stats = True
-            except Exception, e:
-                print "Error getting wireless stats on interface %s: %s"%(self.iface, str(e))
+            except Exception as e:
+                print("Error getting wireless stats on interface %s: %s"%(self.iface, str(e)))
         
         if not got_stats:
             #print self.name, "could not collect wireless data", e
-            print
+            print()
             self.reliability = 0
             self.wifi_quality = -1
             self.wifi_noise = 1e1000
@@ -778,7 +780,7 @@ class WirelessInterface(DhcpInterface):
             self.wifi_rate = self.wifi._formatBitrate(self.wifi_rate)
         else:
             if self.status != NOLINK:
-                print "Unable to determine TX rate on interface", self.iface
+                print("Unable to determine TX rate on interface", self.iface)
                 self.diags.append(('TX Rate (Mbps)', 'Error collecting data.'))
             else:
                 self.diags.append(('TX Rate (Mbps)', 'Unknown'))
@@ -1013,8 +1015,8 @@ class SelectionStrategy:
     def update(self):
         ns = self.ns
         ns.update()
-        print >> strategy_str
-        print >> strategy_str, log_time_string(time.time())
+        print(file=strategy_str)
+        print(log_time_string(time.time()), file=strategy_str)
         self.do_update()
         ns.prepare_diagnostics()
 
@@ -1058,8 +1060,8 @@ class LinkBringupTimeMeasurementStrategy(SelectionStrategy):
                 self.stats[i].append(now - self.start_times[i])
                 iface.startover()
                 self.start_times[i] = now
-            print >> strategy_str, "%s %5.0f %5.1fs %4.1fs %s"%(iface.name, iface.goodness, now - self.start_times[i], iface.timeout_time - now, self.stats[i].to_string())
-        print >> strategy_str
+            print("%s %5.0f %5.1fs %4.1fs %s"%(iface.name, iface.goodness, now - self.start_times[i], iface.timeout_time - now, self.stats[i].to_string()), file=strategy_str)
+        print(file=strategy_str)
 
 class LinkStabilityTimeMeasurementStrategy(SelectionStrategy):
     def __init__(self, config):
@@ -1090,7 +1092,7 @@ class LinkStabilityTimeMeasurementStrategy(SelectionStrategy):
                 self.is_up[i] = is_now_up
                         
             #print iface.name, ("up  " if is_now_up else "down"), "%5.1fs"%(now - self.start_times[i]), "%4.1fs"%(iface.timeout_time - now), "START", self.start_stats[i].to_string(), "LONGEVITY", self.longevity_stats[i].to_string()
-            print >> strategy_str, iface.name, "%5.0f"%iface.goodness, "%5.1fs"%(now - self.start_times[i]), "%4.1fs"%(iface.timeout_time - now), "START", self.start_stats[i].to_string(), "LONGEVITY", self.longevity_stats[i].to_string()
+            print(iface.name, "%5.0f"%iface.goodness, "%5.1fs"%(now - self.start_times[i]), "%4.1fs"%(iface.timeout_time - now), "START", self.start_stats[i].to_string(), "LONGEVITY", self.longevity_stats[i].to_string(), file=strategy_str)
 
 class SimpleSelectionStrategy(SelectionStrategy):
     def __init__(self, config):
@@ -1163,7 +1165,7 @@ class SimpleSelectionStrategy(SelectionStrategy):
                     is_active += ", best wifi"
             except ValueError:
                 is_active = ""
-            print >> strategy_str, "%10s %5.1f %17s %7.3f %3.0f %s"%(iface.name, (iface.timeout_time - time.time()), iface.bssid, iface.goodness, iface.reliability, is_active)
+            print("%10s %5.1f %17s %7.3f %3.0f %s"%(iface.name, (iface.timeout_time - time.time()), iface.bssid, iface.goodness, iface.reliability, is_active), file=strategy_str)
 
 class AlwaysSwitchSelectionStrategy(SelectionStrategy):
     def __init__(self, config):
@@ -1212,11 +1214,11 @@ class AlwaysSwitchSelectionStrategy(SelectionStrategy):
                 is_active = "active"
             else:
                 is_active = ""
-            print >> strategy_str, "%s %.1f %s %.3f %.0f %s"%(iface.name, (iface.timeout_time - time.time()), iface.bssid, iface.goodness, iface.reliability, is_active)
+            print("%s %.1f %s %.3f %.0f %s"%(iface.name, (iface.timeout_time - time.time()), iface.bssid, iface.goodness, iface.reliability, is_active), file=strategy_str)
 
 def main(config_file, strategy, supervisor_function = None):
     if os.getuid() != 0:
-       print >> console, "roam.py must be run as root!"
+       print("roam.py must be run as root!", file=console)
        sys.exit(1)
     with open(config_file, 'r') as f:
        config = yaml.load(f.read())
@@ -1231,36 +1233,36 @@ def main(config_file, strategy, supervisor_function = None):
                        try:
                            supervisor_function(s)
                        except:
-                           print "Exception in supervisor_function."
+                           print("Exception in supervisor_function.")
                            traceback.print_exc(10)
-                           print
+                           print()
                    time.sleep(1)
             
             except KeyboardInterrupt:
-                print "Exiting on CTRL-C"
+                print("Exiting on CTRL-C")
         except:
             traceback.print_exc(10)
-            print
+            print()
             raise
     finally:
         try:
             safe_shutdown(s.shutdown)
         except:
             traceback.print_exc(10)
-            print
+            print()
     
-    print
-    print "End of main reached. Waiting for threads to shut down."
+    print()
+    print("End of main reached. Waiting for threads to shut down.")
     time.sleep(0.1)
     while True:    
         threads = threading.enumerate()
         non_daemon = sum(0 if t.daemon else 1 for t in threads)
         if non_daemon == 1:
             break
-        print
-        print "Remaining threads:", non_daemon, len(threads)
+        print()
+        print("Remaining threads:", non_daemon, len(threads))
         for t in threads:
-            print ("daemon: " if t.daemon else "regular:"), t.name
+            print(("daemon: " if t.daemon else "regular:"), t.name)
         time.sleep(1)
 
 if __name__ == "__main__":

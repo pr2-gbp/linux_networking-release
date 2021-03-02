@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 from __future__ import with_statement
+from __future__ import print_function
 
 import time
 import sys
@@ -66,7 +67,7 @@ class MonitorSource :
              self.pktstruct = "=iddi"
         self.hdr_len = struct.calcsize(self.pktstruct)
         if (pkt_length < self.hdr_len):
-            print >> sys.stderr, "pkt_length must be at least", self.hdr_len
+            print("pkt_length must be at least", self.hdr_len, file=sys.stderr)
             return
         
         self.cv = threading.Condition()
@@ -115,11 +116,11 @@ class MonitorSource :
         if self.tos:
             try:
                 self.socket.setsockopt(socket.SOL_IP, socket.IP_TOS, self.tos)
-            except socket.error, e:
-                print "Could not set TOS:", str(e)
+            except socket.error as e:
+                print("Could not set TOS:", str(e))
 
     def start_monitor(self, sourceaddr = None):
-        print "Starting UDP monitor"
+        print("Starting UDP monitor")
         if self.paused:
             self.init_socket(sourceaddr)
             with self.cv:
@@ -180,9 +181,9 @@ class MonitorSource :
                 with self.mutex:
                     self.outstanding[seqnum] = send_time
                 self.socket.sendto(hdr.ljust(self.pkt_length), self.destaddr_ip)
-            except Exception, e:
+            except Exception as e:
                 self.exceptions.add(str(e))
-                print "Got exception in send thread:", e
+                print("Got exception in send thread:", e)
                 #traceback.print_exc(10)
                 #print self.destaddr
         #print "Udp monitor send_thread finished shut down"
@@ -211,7 +212,7 @@ class MonitorSource :
                 self.process_rcvd_packet(send_time, echo_time, recv_time, seq_num)
             except socket.timeout:
                 pass
-            except Exception, e:
+            except Exception as e:
                 self.exceptions.add(str(e))
         #print "Udp monitor recv_thread finished shut down"
 
@@ -276,7 +277,7 @@ class MonitorSource :
     def get_smart_bins(self, window):
         stats = self.get_statistics()
         for s in stats.exceptions:
-            print "Got exception", s
+            print("Got exception", s)
         return stats.get_smart_bins()
 
 class Statistics:
@@ -347,7 +348,7 @@ class MonitorClient(MonitorSource):
 if __name__ == "__main__":
     try:
         if not len(sys.argv) in [5, 6]:
-            print "usage: udpmoncli.py <host> <port> <pkt_rate> <pkt_size> [<src_addr>]"
+            print("usage: udpmoncli.py <host> <port> <pkt_rate> <pkt_size> [<src_addr>]")
             sys.exit(1)
         host = sys.argv[1]
         port = int(sys.argv[2])
@@ -372,19 +373,19 @@ if __name__ == "__main__":
                     bins = cli.get_bins()
                 else:
                     bins, average, average_restricted = cli.get_smart_bins(display_interval)
-                print "%7.3f:"%(time.time() - start_time),
+                print("%7.3f:"%(time.time() - start_time), end=' ')
                 for i in range(0,len(bins)):
-                    print "%3i"%(int(100*bins[i])),
+                    print("%3i"%(int(100*bins[i])), end=' ')
                     if i == 2:
-                        print "  /",
-                print "avg: %5.1f ms"%(1000*average), "avgr: %5.1f ms"%(1000*average_restricted), "loss: %6.2f %%"%(100 - 100 * sum(bins[0:-1]))
+                        print("  /", end=' ')
+                print("avg: %5.1f ms"%(1000*average), "avgr: %5.1f ms"%(1000*average_restricted), "loss: %6.2f %%"%(100 - 100 * sum(bins[0:-1])))
                 sys.stdout.flush()
         finally:
             cli.shutdown()
-            print >> sys.stderr, "Round trip latency summary (packets):" 
+            print("Round trip latency summary (packets):", file=sys.stderr) 
             for i in range(0, len(cli.latencybins)):
-                print >> sys.stderr, "%.1f ms: %i before %i after"%(cli.latencybins[i] * 1000, sum(cli.bins[0:i+1]), sum(cli.bins[i+1:]) + cli.lost)
+                print("%.1f ms: %i before %i after"%(cli.latencybins[i] * 1000, sum(cli.bins[0:i+1]), sum(cli.bins[i+1:]) + cli.lost), file=sys.stderr)
 
     except KeyboardInterrupt:
-        print >> sys.stderr, "Exiting on CTRL+C."
+        print("Exiting on CTRL+C.", file=sys.stderr)
 

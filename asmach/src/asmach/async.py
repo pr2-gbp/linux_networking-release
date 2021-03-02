@@ -4,7 +4,7 @@ import traceback
 import sys
 
 if False: # Set to true to use my implementation
-    print "Using Blaise's implementation"
+    print("Using Blaise's implementation")
 
     class returnValue:
         def __init__(self, value = None):
@@ -38,7 +38,7 @@ if False: # Set to true to use my implementation
                                 try:
                                     r.send(val)
                                     val = yield
-                                except returnValue, r:
+                                except returnValue as r:
                                     args = (r.value, )
                                     break
                     except:
@@ -61,9 +61,9 @@ if False: # Set to true to use my implementation
         yield
         try:
             out = yield f
-            print name, "returned:", out
+            print(name, "returned:", out)
         except:
-            print name, "had exception:"
+            print(name, "had exception:")
             tb = list(sys.exc_info())
             #tb[2] = tb[2].tb_next.tb_next
             traceback.print_exception(*tb)
@@ -73,7 +73,7 @@ if False: # Set to true to use my implementation
             r = start(print_result(f, name))
             while True:
                 r.send(None)
-        except returnValue, r:
+        except returnValue as r:
             pass
 
 else: # Twisted implementation
@@ -102,7 +102,7 @@ else: # Twisted implementation
     def print_result(f, name = "<unnamed>"):
         #try:
             out = yield f
-            print name, "returned:", out
+            print(name, "returned:", out)
         #except:
         #    print name, "had exception:"
         #    tb = list(sys.exc_info())
@@ -112,7 +112,7 @@ else: # Twisted implementation
     def run(f, name = "<unnamed>"):
         try:
             r = print_result(f, name)
-        except returnValue, r:
+        except returnValue as r:
             pass
 
 @function
@@ -147,13 +147,13 @@ def main():
         run(eval(s), s)
 
     demo("f(1,2)")
-    print
+    print()
     sys.stdout.flush()
     demo("g(1,2)")
-    print
+    print()
     sys.stdout.flush()
     demo("h(1,2)")
-    print
+    print()
     sys.stdout.flush()
     demo("i(1,2,3)")
     sys.stdout.flush()

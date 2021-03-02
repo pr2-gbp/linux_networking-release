@@ -27,8 +27,8 @@ def reload_hwsim_module(radios):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print "Usage: find_hwsim_iface.py <radio_index> <total_radios>"
-        print "Example: find_hwsim_iface.py 1 2"
+        print("Usage: find_hwsim_iface.py <radio_index> <total_radios>")
+        print("Example: find_hwsim_iface.py 1 2")
         sys.exit(1)
         
     curr_radio = int(sys.argv[1])

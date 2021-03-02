@@ -98,5 +98,5 @@ class AdaptiveBandwidthTest(unittest.TestCase):
 if __name__ == '__main__':
     try:
         rostest.run('network_monitor_udp', 'adaptive_bw_test', AdaptiveBandwidthTest)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt as e:
         pass

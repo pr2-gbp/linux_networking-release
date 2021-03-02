@@ -145,5 +145,5 @@ class ConstantBandwidthTest(unittest.TestCase):
 if __name__ == '__main__':
     try:
         rostest.run('network_monitor_udp', 'blahblah', ConstantBandwidthTest)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt as e:
         pass

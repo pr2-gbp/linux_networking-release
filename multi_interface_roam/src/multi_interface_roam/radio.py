@@ -38,7 +38,7 @@ class Unassociated(object):
     __metaclass__ = AssociationState
 
 def is_not_associating(state):
-    print state, id(state), id(Associating)
+    print(state, id(state), id(Associating))
     return state != Associating 
 
 class Radio:
@@ -90,7 +90,7 @@ class Radio:
         _scan_action.cancel_all_goals()
 
     def associate(self, id):
-        print "radio.associate", self.interface_name
+        print("radio.associate", self.interface_name)
         ssid = id[0]
         bssid = mac_addr.to_packed(id[1])
         with self.mutex:
@@ -104,14 +104,14 @@ class Radio:
 
     @mainThreadCallback
     def _assoc_feedback_cb(self, fbk):
-        print "_assoc_feedback_cb", self.interface_name, fbk.associated
+        print("_assoc_feedback_cb", self.interface_name, fbk.associated)
         if fbk.associated:
             self.associated.set(fbk.bss)
 
     def _assoc_done_cb(self, state, rslt):
         # DANGER, this is not run in the main thread!!
         
-        print "_assoc_done_cb", self.interface_name
+        print("_assoc_done_cb", self.interface_name)
         # Make sure that no feedback for this goal will arrive after we
         # have processed the goal.
         with self.mutex:

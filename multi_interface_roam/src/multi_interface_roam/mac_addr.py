@@ -58,8 +58,8 @@ def make_special():
             "9" : "A-WEP",
             "A" : "A-WPA2",
             }
-    for mac, descr in base_macs.iteritems():
-        for var, vdescr in variants.iteritems():
+    for mac, descr in base_macs.items():
+        for var, vdescr in variants.items():
             out[mac+var] = descr + " " + vdescr
     return out
 

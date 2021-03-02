@@ -80,7 +80,7 @@ class CommandWithOutput(protocol.ProcessProtocol):
         self.logger.info(line)
         try:
             self.got_line(line)
-        except Exception, e:
+        except Exception as e:
             self.console_logger.fatal("Caught exception in CommandWithOutput.run: %s"%str(e))
             raise # FIXME Remove this?
 

@@ -83,14 +83,14 @@ class StaTester:
         cur_assoc = self.radio.associated.get() 
         if cur_assoc:
             if mac_addr.same(cur_assoc.bssid, bss['bssid']):
-                print >> sys.stderr, "Already associated to", bss['name']
+                print("Already associated to", bss['name'], file=sys.stderr)
                 return
         del cur_assoc
 
         # Scan for this AP
         self.radio.scan([bss['freq']])
         pre_scan_assoc = self.radio.associated.get()
-        print >> sys.stderr, "Scanning"
+        print("Scanning", file=sys.stderr)
         scan_results = yield async_helpers.wait_for_event(self.radio.scan_results_event)
         post_scan_assoc = self.radio.associated.get()
         if pre_scan_assoc and post_scan_assoc:
@@ -100,12 +100,12 @@ class StaTester:
         else:
             self.mixed_scan_counter.count(scan_results)
         if not scan_results:
-            print >> sys.stderr, "\nScan failed"
+            print("\nScan failed", file=sys.stderr)
             return
         target_bss = filter(lambda cbss: mac_addr.same(cbss.bssid, bss['bssid']) and cbss.ssid == bss['ssid'], scan_results)
         self.ap_not_found_counter.count(target_bss)
         if not target_bss:
-            print >> sys.stderr, "\nAP not found", bss['name']
+            print("\nAP not found", bss['name'], file=sys.stderr)
             self.bss_counters[bss['name']].count(False)
             return
 
@@ -126,20 +126,20 @@ class StaTester:
                 if r < 0:
                     break
 
-        print >> sys.stderr, "Associate method", method
+        print("Associate method", method, file=sys.stderr)
         
         if method != Reassociate:
             self.radio.unassociate()
-            print >> sys.stderr, "Unassociating"
+            print("Unassociating", file=sys.stderr)
             yield async_helpers.wait_for_state(self.radio.associated, lambda x: x == radio.Unassociated)
 
         if method == SlowAssoc:
-            print >> sys.stderr, "Waiting after unassociate"
+            print("Waiting after unassociate", file=sys.stderr)
             yield async_helpers.async_sleep(3)
 
         # Associate
         self.radio.associate((bss['ssid'], bss['bssid']))
-        print >> sys.stderr, "Associating"
+        print("Associating", file=sys.stderr)
         yield async_helpers.wait_for_state(self.radio.associated, lambda x: x != radio.Associating)
 
         # Log success
@@ -149,11 +149,11 @@ class StaTester:
 
         if self.radio.associated.get():
             # If association succeeded, make sure it is stable.
-            print >> sys.stderr, "Waiting after associating", bss['name'], method
+            print("Waiting after associating", bss['name'], method, file=sys.stderr)
             yield async_helpers.async_sleep(1)
             self.early_disassoc_counter.count(self.radio.associated.get())
         else:
-            print >> sys.stderr, "\nAssoc failed", bss['name'], method
+            print("\nAssoc failed", bss['name'], method, file=sys.stderr)
             system.system('iwconfig')
 
     @inlineCallbacks
@@ -167,7 +167,7 @@ class StaTester:
                 out = []
                 for counter in self.counters:
                     out.append(str(counter))
-                print >> sys.stderr, " ".join(out)
+                print(" ".join(out), file=sys.stderr)
                 sys.stdout.flush()
 
 def shutdown_by_ros(why):

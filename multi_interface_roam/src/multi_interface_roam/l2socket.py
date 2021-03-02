@@ -29,7 +29,7 @@ def _attach_filter_replacement(s, filter):
     except KeyError:
         try:
             f = os.popen("%s -i %s -ddd -s 1600 '%s'" % (scapy.conf.prog.tcpdump,scapy.conf.iface,filter))
-        except OSError,msg:
+        except OSError as msg:
             log_interactive.warning("Failed to execute tcpdump: (%s)")
             return
         lines = f.readlines()
@@ -76,7 +76,7 @@ class L2Port:
     def doRead(self):
         try:
             data = self._socket.recv(self._max_size)
-        except socket.error, e:
+        except socket.error as e:
             if e.errno == 100:
                 pass # This happens if the interface goes down.
         else:

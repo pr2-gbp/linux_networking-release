@@ -99,7 +99,7 @@ class FrequencyList:
         for i in range(count):
             try:
                 f = self.next_scan_freq(iface, now, allow_early)
-            except NoFrequenciesReady, nfr:
+            except NoFrequenciesReady as nfr:
                 if freqs:
                     break
                 raise
@@ -120,7 +120,7 @@ class FrequencyList:
         try:
             self.frequencies[freq].last_hit = max(self.frequencies[freq].last_hit, stamp)
         except KeyError:
-            print "Got a scan on an unexpected frequency." # FIXME
+            print("Got a scan on an unexpected frequency.") # FIXME
             pass # We got a hit on a frequency that we aren't scanning for. Strange.
 
 def make_id(bss):
@@ -138,7 +138,7 @@ class Bss:
         assert bss.ssid == self.ssid
         assert bss.bssid == self.bssid
         if self.frequency != bss.frequency:
-            print "Frequency for bss %s, %s has changed from %i to %i MHz."%(mac_addr.pretty(bss.bssid), bss.ssid, self.frequency, bss.frequency) # FIXME
+            print("Frequency for bss %s, %s has changed from %i to %i MHz."%(mac_addr.pretty(bss.bssid), bss.ssid, self.frequency, bss.frequency)) # FIXME
         self.frequency = bss.frequency
         self.by_iface[iface] = bss
 
@@ -166,35 +166,35 @@ class BssList:
 
         if True: # Gives an overview of currently known bsses.
             all = self.bsses.items()
-            all.sort(key=lambda (x,y):(y.frequency, x))
+            all.sort(key=lambda x_y:(x_y[1].frequency, x_y[0]))
             now = time.time()
-            print >> known_bsses_log, "\033[2J\033[0;0H"
-            print >> known_bsses_log, "Known BSSes bsses:"
+            print("\033[2J\033[0;0H", file=known_bsses_log)
+            print("Known BSSes bsses:", file=known_bsses_log)
             for _, bss in all:
-                print >> known_bsses_log, mac_addr.pretty(bss.bssid), "%20.20s"%bss.ssid, bss.frequency,
+                print(mac_addr.pretty(bss.bssid), "%20.20s"%bss.ssid, bss.frequency, end=' ', file=known_bsses_log)
                 ifaces = bss.by_iface.keys()
                 ifaces.sort()
                 min_stamp = now - max(bss.by_iface.itervalues(), key = lambda bss: bss.stamp).stamp.to_sec()
                 max_level = max(bss.by_iface.itervalues(), key = lambda bss: bss.level).level
-                print >> known_bsses_log, "%5.1f/%3i"%(min_stamp,max_level),
+                print("%5.1f/%3i"%(min_stamp,max_level), end=' ', file=known_bsses_log)
                 for iface in ifaces:
-                    print >> known_bsses_log, iface.iface, "%5.1f/%3i"%(now - bss.by_iface[iface].stamp.to_sec(), bss.by_iface[iface].level),
-                print >> known_bsses_log 
-            print >> known_bsses_log 
+                    print(iface.iface, "%5.1f/%3i"%(now - bss.by_iface[iface].stamp.to_sec(), bss.by_iface[iface].level), end=' ', file=known_bsses_log)
+                print(file=known_bsses_log) 
+            print(file=known_bsses_log) 
 
             fl = self.freq_list.frequencies.keys()
             fl.sort()
             for f in fl:
                 fc = self.freq_list.frequencies[f]
                 if fc.last_hit:
-                    print >> known_bsses_log, f, "%5.1f"%(now - fc.last_hit),
+                    print(f, "%5.1f"%(now - fc.last_hit), end=' ', file=known_bsses_log)
                 else:
-                    print >> known_bsses_log, f, "never",
-                print >> known_bsses_log, "%5.1f"%(fc.next_scan_time - now),
+                    print(f, "never", end=' ', file=known_bsses_log)
+                print("%5.1f"%(fc.next_scan_time - now), end=' ', file=known_bsses_log)
                 for iface in fc.next_scan_time_by_iface:
-                    print >> known_bsses_log, "%s %5.1f"%(iface.iface, now - fc.next_scan_time_by_iface[iface]),
-                print >> known_bsses_log
-            print >> known_bsses_log
+                    print("%s %5.1f"%(iface.iface, now - fc.next_scan_time_by_iface[iface]), end=' ', file=known_bsses_log)
+                print(file=known_bsses_log)
+            print(file=known_bsses_log)
 
 class ScanManager:
     def __init__(self):
@@ -224,13 +224,13 @@ class ScanManager:
 
     def _log_associations(self, iface, old_state, new_state):
         if new_state:
-            print >> radio_manager_decisions, "--> Associated to %s on %s."%(mac_addr.pretty(new_state.bssid), iface.iface)
+            print("--> Associated to %s on %s."%(mac_addr.pretty(new_state.bssid), iface.iface), file=radio_manager_decisions)
         elif new_state == radio.Associating:
-            print >> radio_manager_decisions, "--> Associating on %s."%iface.iface
+            print("--> Associating on %s."%iface.iface, file=radio_manager_decisions)
         elif new_state == radio.Unassociated:
-            print >> radio_manager_decisions, "--> Unassociated on %s."%iface.iface
+            print("--> Unassociated on %s."%iface.iface, file=radio_manager_decisions)
         else: 
-            print >> radio_manager_decisions, "--> ERROR!! Unknown association state %s on %s."%(new_state, iface.iface)
+            print("--> ERROR!! Unknown association state %s on %s."%(new_state, iface.iface), file=radio_manager_decisions)
 
     @inlineCallbacks
     def _trigger_scan(self, iface):
@@ -252,17 +252,17 @@ class ScanManager:
                 freqs = self.frequencies.next_scan_freqs(iface, 1, False)
             else:
                 freqs = self.frequencies.next_scan_freqs(iface, self.num_scan_frequencies, True)
-        except NoFrequenciesReady, nfr:
+        except NoFrequenciesReady as nfr:
             if nfr.next_time:
                 self.scheduled_scan[iface] = reactor.callLater(max(0.1, nfr.next_time - time.time()), self._trigger_scan, iface)
                 #print "No frequencies for ", iface.iface, nfr.next_time - time.time()
             #else:
                 #print "No frequencies for", iface.iface
         else:
-            print "Triggering scan", iface.iface, freqs
+            print("Triggering scan", iface.iface, freqs)
             rslt = yield iface.radio_sm.scan(freqs)
             if not rslt:
-                print "Scan failed", iface.iface, freqs
+                print("Scan failed", iface.iface, freqs)
                 yield async_helpers.async_sleep(self.failed_scan_delay)
                 self.frequencies.reschedule(iface, freqs)
 
@@ -333,13 +333,13 @@ class RadioManager:
         if not cur_bss:
             return
         if not self.check_bss_matches_forcing(cur_bss):
-            print iface.iface, "associated to", cur_bss.ssid, mac_addr.pretty(cur_bss.bssid), cur_bss.frequency
-            print "but want", self.forced_ssid, self.forced_ssid, self.forced_band
-            print "Unassociating because bss does not match requirements."
+            print(iface.iface, "associated to", cur_bss.ssid, mac_addr.pretty(cur_bss.bssid), cur_bss.frequency)
+            print("but want", self.forced_ssid, self.forced_ssid, self.forced_band)
+            print("Unassociating because bss does not match requirements.")
             iface.radio_sm.unassociate()
             return
         if not self.check_iface_matches_forcing(iface):
-            print "Unassociating %s because interface forced to %s"%(iface, self.forced_iface)
+            print("Unassociating %s because interface forced to %s"%(iface, self.forced_iface))
             iface.radio_sm.unassociate()
             return
 
@@ -361,12 +361,12 @@ class RadioManager:
         return True
 
     def _new_scan_data(self):
-        print "_new_scan_data"
+        print("_new_scan_data")
         #print "\033[2J"
         #print "\033[0;0H"
         now = time.time()
         if now < self.initial_inhibit_end:
-            print "inhibited"
+            print("inhibited")
             return
         for iface in self.interfaces:
             if not self.check_iface_matches_forcing(iface):
@@ -386,24 +386,24 @@ class RadioManager:
                     expiry_time = now - self.bss_expiry_time
                     best_bss = max(candidate_bsses, key = lambda bss: self.desirability(bss, expiry_time, iface))
                     if iface not in best_bss.by_iface or best_bss.by_iface[iface].stamp.to_sec() < expiry_time:
-                        print "Best bss is expired.", mac_addr.pretty(best_bss.bssid)
+                        print("Best bss is expired.", mac_addr.pretty(best_bss.bssid))
                         best_bss = None
                 else:
-                    print "No candidate bsses."
+                    print("No candidate bsses.")
                     best_bss = None
                 if best_bss is None:
-                    print "No candidate bsses or expired."
+                    print("No candidate bsses or expired.")
                     #print bool(candidate_bsses), [candidate_bsses]
                     #print self.scan_manager.bss_list.bsses.values()
                     continue
 
                 best_desirability = self.desirability(best_bss, expiry_time, iface)
-                print "Best bss:", mac_addr.pretty(best_bss.bssid), best_desirability
+                print("Best bss:", mac_addr.pretty(best_bss.bssid), best_desirability)
 
                 if cur_assoc:
                     # Are we already associated to the best AP?
                     if make_id(cur_assoc) == best_bss.id:
-                        print "Already associated to best bss."
+                        print("Already associated to best bss.")
                         continue
 
                     # Compute desirability for current association.
@@ -416,20 +416,20 @@ class RadioManager:
                     
                     # Is the best ap better enough than the current best?
                     if cur_desirability + self.reassociate_hysteresis > best_desirability:
-                        print "Best bss not over hysteresis threshold: %s %f > %s %f"%(mac_addr.pretty(cur_assoc.bssid), cur_desirability, mac_addr.pretty(best_bss.bssid), self.desirability(best_bss))
+                        print("Best bss not over hysteresis threshold: %s %f > %s %f"%(mac_addr.pretty(cur_assoc.bssid), cur_desirability, mac_addr.pretty(best_bss.bssid), self.desirability(best_bss)))
                         continue
 
                 # Let's associate
-                print >> radio_manager_decisions, "Associating to %s (%f) on %s"%(mac_addr.pretty(best_bss.bssid), best_desirability, iface.iface),
+                print("Associating to %s (%f) on %s"%(mac_addr.pretty(best_bss.bssid), best_desirability, iface.iface), end=' ', file=radio_manager_decisions)
                 if cur_assoc:
-                    print >> radio_manager_decisions, "from %s (%f)"%(mac_addr.pretty(cur_assoc.bssid), cur_desirability)
+                    print("from %s (%f)"%(mac_addr.pretty(cur_assoc.bssid), cur_desirability), file=radio_manager_decisions)
                 else:
-                    print >> radio_manager_decisions, "from unassociated"
+                    print("from unassociated", file=radio_manager_decisions)
                 iface.radio_sm.associate_request.trigger(best_bss.id)
                 self.iface_associations[iface] = best_bss.id
     
     def _dhcp_fail(self, iface):
-        print >> radio_manager_decisions, "DHCP failed, taking down", iface.iface
+        print("DHCP failed, taking down", iface.iface, file=radio_manager_decisions)
         iface.interface_upper.restart()
 
     def _ping_fail():
@@ -464,7 +464,7 @@ class RadioManager:
             for iface in active:
                 if iface != self.best_active:
                     iface.radio_sm.activate_request.set(False)
-                    print >> radio_manager_decisions, "XXX Disactivating %s because %s is active and better."%(iface.iface, self.best_active.iface)
+                    print("XXX Disactivating %s because %s is active and better."%(iface.iface, self.best_active.iface), file=radio_manager_decisions)
 
         # Activate a verified interface if it is better than the current
         # active interface.
@@ -475,9 +475,9 @@ class RadioManager:
             best_inactive_verified = max(inactive_verified, key = iface_score)
             if not self.best_active or iface_score(best_inactive_verified) > iface_score(self.best_active) + self.activate_hysteresis:
                 if not self.best_active:
-                    print >> radio_manager_decisions, "XXX Activating %s because no current best active."%best_inactive_verified.iface
+                    print("XXX Activating %s because no current best active."%best_inactive_verified.iface, file=radio_manager_decisions)
                 else:
-                    print >> radio_manager_decisions, "XXX Activating %s because it is better than %s."%(best_inactive_verified.iface, self.best_active.iface)
+                    print("XXX Activating %s because it is better than %s."%(best_inactive_verified.iface, self.best_active.iface), file=radio_manager_decisions)
                 best_inactive_verified.radio_sm.activate_request.set(True)
 
         # Keep a closer watch on the most relevant frequencies.
@@ -491,22 +491,22 @@ class RadioManager:
         periods = dict((f, self.scan_manager.frequencies.scan_period_cold) 
                 for f in self.scan_manager.frequencies.frequencies)
         hot_frequencies = 0
-        print >> scan_periods_log, "\033[2J\033[0;0H"
-        print >> scan_periods_log, "Candidate bsses:"
+        print("\033[2J\033[0;0H", file=scan_periods_log)
+        print("Candidate bsses:", file=scan_periods_log)
         for bss in candidate_bsses:
-            print >> scan_periods_log, bss.ssid, mac_addr.pretty(bss.bssid), bss.frequency, self.desirability(bss, expiry_time), now - bss.last_seen()
+            print(bss.ssid, mac_addr.pretty(bss.bssid), bss.frequency, self.desirability(bss, expiry_time), now - bss.last_seen(), file=scan_periods_log)
             if hot_frequencies < self.max_hot_frequencies and periods[bss.frequency] != self.scan_period_hot:
                 hot_frequencies += 1
                 p = self.scan_period_hot
             elif bss.last_seen(iface) > now - self.warm_bss_expiry_time:
                 p = self.scan_period_warm
             periods[bss.frequency] = min(periods[bss.frequency], p)
-        print >> scan_periods_log, "Frequencies"
+        print("Frequencies", file=scan_periods_log)
         #for f in self.scan_manager.frequencies.frequencies:
         freqs = [ f for f in self.scan_manager.frequencies.frequencies if check_band(f, self.forced_band) ]
         freqs.sort()
         for f in freqs:
-            print >> scan_periods_log, f, periods[f], self.scan_manager.frequencies.frequencies[f].next_scan_time - now
+            print(f, periods[f], self.scan_manager.frequencies.frequencies[f].next_scan_time - now, file=scan_periods_log)
             self.scan_manager.frequencies.set_freq_period(f, periods[f])
 
     def desirability(self, target_bss, expiry_time = 0, iface = None):

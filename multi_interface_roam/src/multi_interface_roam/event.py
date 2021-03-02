@@ -2,7 +2,10 @@
 
 from __future__ import with_statement
 
-import thread
+try:
+    import _thread as thread
+except ImportError:
+    import thread
 import weakref
 
 # TODO:

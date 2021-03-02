@@ -123,5 +123,5 @@ class MultipleEndsTest(unittest.TestCase):
 if __name__ == '__main__':
     try:
         rostest.run('network_monitor_udp', 'multiple_ends_test', MultipleEndsTest)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt as e:
         pass

@@ -14,7 +14,7 @@ class PingTester:
         self.update_event = Event()
         reactor.addSystemEventTrigger('before', 'shutdown', self._shutdown)
         self.udp_monitor = udpmoncli.MonitorClient([config.get_parameter('ping_max_latency', 0.2)], pingtarget, rate, 32, True)
-        CompositeStatePublisher(lambda (addr, ready): None if not ready else addr, [
+        CompositeStatePublisher(lambda addr_ready: None if not addr_ready[1] else addr_ready[0], [
             netlink_monitor.get_state_publisher(iface, IFSTATE.ADDR),
             state_pub,
         ]).subscribe(self._addr_cb)
@@ -30,7 +30,7 @@ class PingTester:
             # FIXME This should only happen after routes are set up.
             #print "New address", new_state
             self.udp_monitor.start_monitor((new_state[0], 0))
-            print "Starting monitor on %s"%new_state[0]
+            print("Starting monitor on %s"%new_state[0])
         else:
             self.udp_monitor.stop_monitor()
             self.state = None
@@ -62,11 +62,11 @@ class PingMonitor:
             self.is_verified.set(True)
         elif self.has_address and self.restart_time < time.time():
             if not config.get_parameter('disable_ping_timeout'):
-                print "PingMonitor restarting", self.iface.iface
+                print("PingMonitor restarting", self.iface.iface)
                 self.has_address = False
                 self.iface.interface_upper.restart()
             else:
-                print "PingMonitor restart was disabled by disable_ping_timeout", self.iface.iface
+                print("PingMonitor restart was disabled by disable_ping_timeout", self.iface.iface)
                 self._set_timeout()
 
     def _has_address_cb(self, iface, old_state, new_state):

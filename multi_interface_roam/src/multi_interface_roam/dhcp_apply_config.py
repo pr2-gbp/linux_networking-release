@@ -61,7 +61,7 @@ class DhcpRouteSetter(_DhcpSetterCommon):
         self.iface = iface
         self.table = str(table)
         self._iface_status_pub = netlink_monitor.get_status_publisher(iface)
-        CompositeStatePublisher(lambda (addr, dhcp): None if not addr else dhcp, [
+        CompositeStatePublisher(lambda addr_dhcp: None if not addr_dhcp[0] else addr_dhcp[1], [
             netlink_monitor.get_state_publisher(iface, IFSTATE.ADDR),
             state_pub
         ]).subscribe(self._cb)

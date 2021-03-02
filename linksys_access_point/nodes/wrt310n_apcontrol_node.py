@@ -40,7 +40,7 @@ class LinksysWRT310NApControl:
         self.set_req_args["nvset_cgi"] = "wireless"
         self.set_req_args["next_page"] = ""
 
-        print self.current_config
+        print(self.current_config)
 
         node_name = rospy.get_name()
         for param_name in self.current_config:
@@ -187,7 +187,7 @@ class LinksysWRT310NApControl:
         if channel is not None:
             args["%s_schannel"%(self.interface)] = channel
             args["%s_channel"%(self.interface)] = channel
-        print args
+        print(args)
         self.apply_request(args, "Wireless_Basic")
 
     def set_wireless_advanced(self, bitrate):

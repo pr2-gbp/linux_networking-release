@@ -52,7 +52,7 @@ class Capture(event.Event):
             self.parent.trigger(*args)
     
         def doRead(self):
-            print "doRead"
+            print("doRead")
             if self.parent:
                 self._got_pkt = False
                 self.pcap.dispatch(-1, self._cb)
@@ -64,7 +64,7 @@ class Capture(event.Event):
                     self.close()
         
         def close(self):
-            print "Closing descriptor."
+            print("Closing descriptor.")
             reactor.removeReader(self)
             self.pcap.open_dead(0, 0)
             self.pcap = None
@@ -82,11 +82,11 @@ class Capture(event.Event):
             has_descr = self._descr is not None
             has_subs = len(self._subscribers) != 0
             if has_descr and not has_subs:
-                print "No more subscribers!"
+                print("No more subscribers!")
                 self._descr.close()
                 self._descr = None
             elif not has_descr and has_subs:
-                print "Subscribers added!"
+                print("Subscribers added!")
                 if self._args != None: # We are not closed.
                     self._descr = Capture._CaptureDescriptor(self, *self._args, **self._kwargs)
                 else:
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     import scapy.layers.inet
 
     def print_pkt(iface, len, data, time):
-        print time, iface, len, repr(scapy.layers.l2.Ether(data).payload.payload)
+        print(time, iface, len, repr(scapy.layers.l2.Ether(data).payload.payload))
 
     import gc
     def hasPcapObj():
@@ -128,16 +128,16 @@ if __name__ == "__main__":
                     isinstance(obj, Capture._CaptureDescriptor) or \
                     isinstance(obj, Capture):
                 if isinstance(obj, Capture):
-                    print obj, gc.get_referents(gc.get_referents(obj))
+                    print(obj, gc.get_referents(gc.get_referents(obj)))
                 count += 1
-        print "objects found:", count
+        print("objects found:", count)
    
     class DeathReporter:
         def __init__(self, name):
             self.name = name
         
         def __del__(self, *args):
-            print "I'm dead!", self.name
+            print("I'm dead!", self.name)
 
     hasPcapObj()
     c1 = Capture('lo', 'icmp')

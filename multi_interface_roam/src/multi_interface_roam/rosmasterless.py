@@ -49,7 +49,7 @@ def check_master():
                     master.registerPublisher(name, type, our_uri)
                 master_pid = master.getPid()
                 #print "Registered with master."
-            except Exception, e:
+            except Exception as e:
                 master = None
                 master_pid = None
 

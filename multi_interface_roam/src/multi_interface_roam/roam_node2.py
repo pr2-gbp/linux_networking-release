@@ -1,5 +1,7 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
+
 #import roslib; roslib.load_manifest('multi_interface_roam')
 import rospy
 import config
@@ -223,13 +225,13 @@ class RoamNode:
 
 if __name__ == "__main__":
     def start():
-        print "roam_node2 starting..."
+        print("roam_node2 starting...")
         try:
             RoamNode()
         except:
             import traceback
             traceback.print_exc()
-            print >> sys.stderr, "\nCaught exception during startup. Shutting down."
+            print("\nCaught exception during startup. Shutting down.", file=sys.stderr)
             reactor.fireSystemEvent('shutdown')
     reactor.addSystemEventTrigger('before', 'startup', start)
     reactor.run()

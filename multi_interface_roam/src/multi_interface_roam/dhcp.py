@@ -100,12 +100,12 @@ class ExchangeDiscover:
             dhcp = bootp.payload
             
             if not self.validate_common(ud, pkt, ip, udp, bootp, dhcp):
-                print "validate_common returned False"
+                print("validate_common returned False")
                 return False
 
             message_type = dhcp_type_str(find_dhcp_option('message-type', None, dhcp))
             if message_type != 'offer':
-                print "Ignoring packet based on unexpected message_type %s"%message_type
+                print("Ignoring packet based on unexpected message_type %s"%message_type)
                 return False
                 
             ip = ud.dhcp.lease.public_config['ip'] = bootp.yiaddr
@@ -125,7 +125,7 @@ class ExchangeDiscover:
 
         except:
             traceback.print_exc()
-            print "Excepiton validating packet."
+            print("Excepiton validating packet.")
             return False
 
 
@@ -143,7 +143,7 @@ class ExchangeRequest:
             dhcp = bootp.payload
             
             if not self.validate_common(ud, pkt, ip, udp, bootp, dhcp):
-                print "validate_common returned False"
+                print("validate_common returned False")
                 return False
 
             message_type = dhcp_type_str(find_dhcp_option('message-type', None, dhcp))
@@ -151,12 +151,12 @@ class ExchangeRequest:
                 return 'fail' # TODO Check that from right server?
             
             if message_type != 'ack':
-                print "Ignoring packet based on unexpected message_type %s"%message_type
+                print("Ignoring packet based on unexpected message_type %s"%message_type)
                 return False
 
             lease_time = find_dhcp_option('lease_time', None, dhcp)
             if not lease_time:
-                print "Ignoring packet with no lease_time"
+                print("Ignoring packet with no lease_time")
             lease_time = lease_time[0] 
             renewal_time = find_dhcp_option('renewal_time', (random.uniform(0.45, 0.55) * lease_time, ), dhcp)[0]
             rebind_time = find_dhcp_option('rebinding_time', (random.uniform(0.825, 0.925) * lease_time, ), dhcp)[0]
@@ -173,7 +173,7 @@ class ExchangeRequest:
 
         except:
             traceback.print_exc()
-            print "Excepiton validating packet."
+            print("Excepiton validating packet.")
             return False
 
 
@@ -252,12 +252,12 @@ class Exchange(DhcpState):
     def validate_common(self, ud, pkt, ip, udp, bootp, dhcp): 
         # Should we be receiving this packet?
         if pkt.dst != ud.dhcp.hwaddr and pkt.dst != ETHER_BCAST:
-            print "Discarding packet based on destination MAC: %s != %s"%(pkt.dst, ud.dhcp.hwaddr)
+            print("Discarding packet based on destination MAC: %s != %s"%(pkt.dst, ud.dhcp.hwaddr))
             return False
 
         # Does the xid match?
         if pkt.xid != ud.dhcp.lease.xid:
-            print "Discarding packet based on xid: %i != %i"%(pkt.xid, ud.dhcp.lease.xid)
+            print("Discarding packet based on xid: %i != %i"%(pkt.xid, ud.dhcp.lease.xid))
             return False
        
         # TODO Check that from right server?
@@ -394,7 +394,7 @@ if __name__ == "__main__":
     from twisted.internet import reactor
 
     if len(sys.argv) != 2:
-        print "usage: dhcp.py <interface>"
+        print("usage: dhcp.py <interface>")
         sys.exit(1)
 
     iface = sys.argv[1]

@@ -7,21 +7,21 @@ def follow_back(a, n):
     """Handy function for seeing why an object is still live by walking
     back through its referrers."""
     def print_elem(e):
-        print repr(e)[0:200]
+        print(repr(e)[0:200])
         try:
-            print e.f_code.co_filename, e.f_lineno
+            print(e.f_code.co_filename, e.f_lineno)
             #print e.f_locals
             #print dir(e)
         except:
             pass
-    print
-    print "Follow back:"
+    print()
+    print("Follow back:")
     print_elem(a)
     for i in range(n):
         r = gc.get_referrers(a)
         r.remove(inspect.currentframe())
-        print
-        print len(r)
+        print()
+        print(len(r))
         for e in r:
             print_elem(e)
         a = r[0]
@@ -34,12 +34,12 @@ def compare_before_after(before, after):
     delta = afterids - beforeids - set([id(before)])
     for e in after:
         if id(e) in delta:
-            print e
+            print(e)
 
 def dump_back_reference_graph(obj, maxdepth):
     obj = obj()
     if obj is None:
-        print "Weakref was freed."
+        print("Weakref was freed.")
         return
 
     curframe = inspect.currentframe()
@@ -106,7 +106,7 @@ def dump_back_reference_graph(obj, maxdepth):
         edges.extend((id(r), ide) for r in refs)
         del refs
            
-    print "Found %i nodes and %i edges"%(len(strings), len(edges))
+    print("Found %i nodes and %i edges"%(len(strings), len(edges)))
     #for s in strings.values():
     #    print s
 

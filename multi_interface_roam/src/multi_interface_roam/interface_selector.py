@@ -72,13 +72,13 @@ class InterfaceSelector:
                 new_iface.prescore = InterfaceSelector.TERRIBLE_INTERFACE
                 ifaceid += 1
             except interface.NoType:
-                print >> sys.stderr, "Interface %s has no type."%iface
+                print("Interface %s has no type."%iface, file=sys.stderr)
                 sys.exit(1)
-            except interface.UnknownType, e:
-                print >> sys.stderr, "Interface %s has unknown type %s."%(iface, e)
+            except interface.UnknownType as e:
+                print("Interface %s has unknown type %s."%(iface, e), file=sys.stderr)
                 sys.exit(1)
             except:
-                print >> sys.stderr, "Error creating interface %s."%iface
+                print("Error creating interface %s."%iface, file=sys.stderr)
                 raise
 
         # Register the radios with the radio manager
@@ -104,7 +104,7 @@ class InterfaceSelector:
 
     @mainThreadCallback
     def set_mode(self, ssid = "", bssid = "", sel_interface = "", use_tunnel = True, band = 3, scan_only = False):
-        print >> sys.stderr, "Dynamic reconfiguration ssid: %s bssid: %s iface: %s tun: %s band: %s scan_only: %s"%(ssid, bssid, sel_interface, use_tunnel, band, scan_only)
+        print("Dynamic reconfiguration ssid: %s bssid: %s iface: %s tun: %s band: %s scan_only: %s"%(ssid, bssid, sel_interface, use_tunnel, band, scan_only), file=sys.stderr)
         self.goodness_weight = config.get_parameter('ping_weighting', 0.5)
         self.radio_manager.set_mode(ssid, bssid, band, scan_only, sel_interface)
         self.forced_interface = sel_interface
@@ -214,15 +214,15 @@ class InterfaceSelector:
 
         # Print active_iface status
         now = time.time()
-        print >> summary_logger
-        print >> summary_logger, time.ctime(now), now
+        print(file=summary_logger)
+        print(time.ctime(now), now, file=summary_logger)
         #print >> summary_logger, netlink_monitor.get_status_publisher(self.tunnel_interface).get()
         for rank, iface in enumerate(interfaces):
             # FIXME
             iface.timeout_time = now
             active = "active" if iface.active else ""
             rule = "rule  " if iface in active_interfaces else "norule"
-            print >> summary_logger, "#% 2i %10.10s %7.1f %7.3f %7.3f %17.17s %7.3f %3.0f %s %s"% \
-                    (rank, iface.prettyname, (iface.timeout_time - now), iface.score, iface.prescore, iface.bssid, iface.goodness, iface.reliability, rule, active)
+            print("#% 2i %10.10s %7.1f %7.3f %7.3f %17.17s %7.3f %3.0f %s %s"% \
+                    (rank, iface.prettyname, (iface.timeout_time - now), iface.score, iface.prescore, iface.bssid, iface.goodness, iface.reliability, rule, active), file=summary_logger)
 
         self.active_interfaces = active_interfaces

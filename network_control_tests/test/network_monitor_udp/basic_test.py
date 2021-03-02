@@ -109,5 +109,5 @@ class BasicTest(unittest.TestCase):
 if __name__ == '__main__':
     try:
         rostest.run('network_monitor_udp', 'blahblah', BasicTest)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt as e:
         pass

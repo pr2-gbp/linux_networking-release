@@ -14,8 +14,8 @@ def get_band_string(freq):
     else:
         raise Exception("Invalid band")
 
-print "||<tablestyle=\"text-align: center;\">'''Band'''||'''Frequency'''||'''Channel'''||"
+print("||<tablestyle=\"text-align: center;\">'''Band'''||'''Frequency'''||'''Channel'''||")
 freqs = freq_to_chan_map.keys()
 freqs.sort()
 for freq in freqs:
-    print "||%s||%.1f MHz||%d||"%(get_band_string(freq), freq/1e6, freq_to_chan_map[freq])
+    print("||%s||%.1f MHz||%d||"%(get_band_string(freq), freq/1e6, freq_to_chan_map[freq]))

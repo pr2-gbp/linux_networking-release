@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 from __future__ import with_statement
+from __future__ import print_function
 
 import time
 import sys
@@ -59,24 +60,24 @@ if __name__ == "__main__":
                     bins = source.get_bins()
                 else:
                     bins, average, average_restricted = source.get_smart_bins(display_interval)
-                print "%7.3f:"%(time.time() - start_time),
+                print("%7.3f:"%(time.time() - start_time), end=' ')
                 for i in range(0,len(bins)):
-                    print "%3i"%(int(100*bins[i])),
+                    print("%3i"%(int(100*bins[i])), end=' ')
                     if i == 2:
-                        print "  /",
-                print "avg: %5.1f ms"%(1000*average), "avgr: %5.1f ms"%(1000*average_restricted), "loss: %6.2f %%"%(100 - 100 * sum(bins[0:-1]))
+                        print("  /", end=' ')
+                print("avg: %5.1f ms"%(1000*average), "avgr: %5.1f ms"%(1000*average_restricted), "loss: %6.2f %%"%(100 - 100 * sum(bins[0:-1])))
                 sys.stdout.flush()
                 if ros_returnpath and rospy.is_shutdown():
                     break
         finally:
             if oneway:
-                print >> sys.stderr, "Oneway latency summary (packets):"
+                print("Oneway latency summary (packets):", file=sys.stderr)
             else:
-                print >> sys.stderr, "Round trip latency summary (packets):"
+                print("Round trip latency summary (packets):", file=sys.stderr)
             for i in range(0, len(source.latencybins)):
-                print >> sys.stderr, "%.1f ms: %i before %i after"%(source.latencybins[i] * 1000, sum(source.bins[0:i+1]), sum(source.bins[i+1:]) + source.lost)
+                print("%.1f ms: %i before %i after"%(source.latencybins[i] * 1000, sum(source.bins[0:i+1]), sum(source.bins[i+1:]) + source.lost), file=sys.stderr)
             source.shutdown()
 
     except KeyboardInterrupt:
-        print >> sys.stderr, "Exiting on CTRL+C."
+        print("Exiting on CTRL+C.", file=sys.stderr)
 

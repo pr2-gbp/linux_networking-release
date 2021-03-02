@@ -53,7 +53,7 @@ class ParameterTest(unittest.TestCase):
             if pkt is None:
                 continue
             if pkt.type != 0x800:
-                print "Unexpected protocol 0x%04x"%pkt.type
+                print("Unexpected protocol 0x%04x"%pkt.type)
                 continue
             if pkt.dport == 12345:
                 tos = pkt.payload.tos
@@ -69,7 +69,7 @@ class ParameterTest(unittest.TestCase):
             if pkt is None:
                 continue
             if pkt.type != 0x800:
-                print "Unexpected protocol 0x%04x"%pkt.type
+                print("Unexpected protocol 0x%04x"%pkt.type)
                 continue
             if pkt.dport == 12346:
                 tos = pkt.payload.tos
@@ -200,5 +200,5 @@ class ParameterTest(unittest.TestCase):
 if __name__ == '__main__':
     try:
         rostest.run('network_monitor_udp', 'parameter_test', ParameterTest)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt as e:
         pass

@@ -50,5 +50,5 @@ if __name__ == '__main__':
 
     setup_hostapd_ap()
 
-    print "Up: ", get_link_capacity("up")
-    print "Down: ", get_link_capacity("down")
+    print("Up: ", get_link_capacity("up"))
+    print("Down: ", get_link_capacity("down"))

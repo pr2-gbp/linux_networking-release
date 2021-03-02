@@ -1,12 +1,14 @@
 #! /usr/bin/env python
 
+from __future__ import print_function
+
 import logging
 import logging.handlers
 import os
 from twisted.internet import protocol, reactor
 from twisted.internet.defer import Deferred, inlineCallbacks
 import sys
-import command_with_output # There is a SIGCHLD hack in there that we want to run
+from . import command_with_output # There is a SIGCHLD hack in there that we want to run
 
 class Quiet:
     pass
@@ -38,11 +40,11 @@ class System(protocol.ProcessProtocol):
     
     def errReceived(self, data):
         if not self.quiet:
-            print >> sys.stderr, data
+            print(data, file=sys.stderr)
 
     def outReceived(self, data):
         if not self.quiet:
-            print >> sys.stdout, data
+            print(data, file=sys.stdout)
 
     def processEnded(self, status_object):
         if self.shutdown_trigger:
@@ -63,7 +65,7 @@ class System(protocol.ProcessProtocol):
         d = Deferred()
         self.shutdown_deferreds.append(d)
         if self.proc:
-            print "Killing command:", self.args
+            print("Killing command:", self.args)
             self.proc.signalProcess("INT")
         else:
             d.callback()
@@ -73,12 +75,12 @@ def system(*args):
     debug = False
     if debug:
         import time
-        print time.time(), "system: ", args
+        print(time.time(), "system: ", args)
     #print "system: ", args
     s = System(*args)
     if debug:
         def printout(value):
-            print time.time(), "system done: ", args
+            print(time.time(), "system done: ", args)
             return value
         s.deferred.addCallback(printout)
     return s.deferred

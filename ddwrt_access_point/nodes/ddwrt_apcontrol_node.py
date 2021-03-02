@@ -72,7 +72,7 @@ class DdwrtApControl:
                 if not re.findall("</html>", body):
                     raise IncompleteResponseBody()
                 break
-            except (urllib2.URLError, httplib.BadStatusLine, IncompleteResponseBody), e:    
+            except (urllib2.URLError, httplib.BadStatusLine, IncompleteResponseBody) as e:    
                 if count < MAX_HTTP_REQUEST_TRIES:
                     rospy.logwarn("HTTP request failed attempting again: %s", str(e))
                     time.sleep(INTERVAL_BETWEEN_TRIES)
@@ -94,7 +94,7 @@ class DdwrtApControl:
 
         try:
             self.send_http_request(req)
-        except (urllib2.URLError, httplib.BadStatusLine, IncompleteResponseBody), e:
+        except (urllib2.URLError, httplib.BadStatusLine, IncompleteResponseBody) as e:
             self.current_config['status'] = "FAIL"
             self.current_config['errmsg'] += "HTTP request failed: " + str(e)
 

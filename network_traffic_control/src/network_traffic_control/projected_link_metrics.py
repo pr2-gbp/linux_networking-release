@@ -40,22 +40,22 @@ def get_projected_link_metrics(bandwidth_limit, latency, loss, packet_size, tx_b
 
 if __name__ == '__main__':
     if len(sys.argv) != 6:
-        print "Usage: projected_link_metrics.py <bandwidth_limit> <latency> <loss> <packet_size> <tx_bandwidth>\n"
-        print "bandwidth_limit: simulated link capacity (in bps)"
-        print "latency: simulated link latency (in seconds)"
-        print "loss: packet loss (in %, but don't include the % sign)"
-        print "packet_size: in bytes (NOT bits)"
-        print "tx_bandwidth: send rate in bps"
-        print 
-        print "Example: projected_link_metrics.py 1000000 0.01 20.0 1500 1500000"
-        print "Simulates a link capacity of 1Mbit/s with a 10ms latency and 20% packet loss, packet size of 1500bytes" \
-            " and data sent at 1.5Mbit/s"
+        print("Usage: projected_link_metrics.py <bandwidth_limit> <latency> <loss> <packet_size> <tx_bandwidth>\n")
+        print("bandwidth_limit: simulated link capacity (in bps)")
+        print("latency: simulated link latency (in seconds)")
+        print("loss: packet loss (in %, but don't include the % sign)")
+        print("packet_size: in bytes (NOT bits)")
+        print("tx_bandwidth: send rate in bps")
+        print() 
+        print("Example: projected_link_metrics.py 1000000 0.01 20.0 1500 1500000")
+        print("Simulates a link capacity of 1Mbit/s with a 10ms latency and 20% packet loss, packet size of 1500bytes" \
+            " and data sent at 1.5Mbit/s")
         exit(1)
 
     (bandwidth, latency, loss) = get_projected_link_metrics(float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3]),
                                                             int(sys.argv[4]), float(sys.argv[5]))
 
-    print "Projected metrics: bandwidth %.2fKbit/s latency %.2fms loss %.2f%%"% \
-        (bandwidth/1e3, latency*1e3, loss)
+    print("Projected metrics: bandwidth %.2fKbit/s latency %.2fms loss %.2f%%"% \
+        (bandwidth/1e3, latency*1e3, loss))
 
     

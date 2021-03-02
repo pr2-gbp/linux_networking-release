@@ -335,7 +335,7 @@ class UdpmonsourceHandle :
         self.count = 0
         started = self.actionclient.wait_for_server() # wait until the udpmonsourcenode has started up
         if started is False:
-            raise Exception, "could not connect to action server"
+            raise Exception("could not connect to action server")
 
     def _generate_name(self, action_name):
         count = self.count

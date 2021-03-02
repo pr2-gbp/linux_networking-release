@@ -68,7 +68,7 @@ class NetlinkMonitor(command_with_output.CommandWithOutput):
         return pubs[interface]
 
     def debug_print(self, interface, level, old_state, new_state):
-        print "Netlink transition", interface, level, "from", old_state, "to", new_state
+        print("Netlink transition", interface, level, "from", old_state, "to", new_state)
 
     def get_status_publisher(self, interface):
         if not interface in self.status_publishers:
@@ -121,7 +121,7 @@ class NetlinkMonitor(command_with_output.CommandWithOutput):
                         if state != 'DOWN':
                             try:
                                 link_state = pythonwifi.iwlibs.Wireless(self.cur_iface).getAPaddr()
-                            except IOError, e:
+                            except IOError as e:
                                 if e.errno == 95 or e.errno == 22:
                                     link_state = 'Wired'
                                 else:
@@ -148,20 +148,20 @@ class NetlinkMonitor(command_with_output.CommandWithOutput):
                             addr_state = tokens[1]
                         self.get_raw_state_publisher(self.cur_iface, IFSTATE.LINK_ADDR).set(addr_state)
 
-            except Exception, e:
-                print "Caught exception in NetlinkMonitor.run:", e
+            except Exception as e:
+                print("Caught exception in NetlinkMonitor.run:", e)
                 traceback.print_exc(10)
-                print
+                print()
 
 monitor = netlink_monitor = NetlinkMonitor()
 
 def print_status(iface):
     from twisted.internet import reactor
-    print monitor.get_status_publisher(iface).get(), ' : ',
+    print(monitor.get_status_publisher(iface).get(), ' : ', end=' ')
     for i in range(0,IFSTATE.NUM_STATES):
-        print monitor.get_raw_state_publisher(iface, i).get(),
-        print monitor.get_state_publisher(iface, i).get(), '  /  ',
-    print
+        print(monitor.get_raw_state_publisher(iface, i).get(), end=' ')
+        print(monitor.get_state_publisher(iface, i).get(), '  /  ', end=' ')
+    print()
     reactor.callLater(1, print_status, iface)
 
 def main():
@@ -171,7 +171,7 @@ def main():
         print_status(iface)
         reactor.run()
     except KeyboardInterrupt:
-        print "Shutting down on CTRL+C"
+        print("Shutting down on CTRL+C")
         #monitor.shutdown()
 
 if __name__ == "__main__":

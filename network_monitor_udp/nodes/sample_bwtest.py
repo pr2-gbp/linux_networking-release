@@ -14,6 +14,6 @@ if __name__ == '__main__':
     source.cancel_all_tests()
     
     try:
-        print "Link capacity: %.2fMbit/s"%(source.get_link_capacity(sink_ip="127.0.0.1", sink_port=12345)/1e6)
+        print(("Link capacity: %.2fMbit/s"%(source.get_link_capacity(sink_ip="127.0.0.1", sink_port=12345)/1e6)))
     finally:
         source.cancel_all_tests()

@@ -2,7 +2,7 @@
 
 from __future__ import with_statement
 
-import event
+from . import event
 import copy
 
 # TODO

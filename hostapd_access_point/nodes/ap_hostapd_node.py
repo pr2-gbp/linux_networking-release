@@ -191,7 +191,7 @@ wmm_ac_vo_txop_limit=102
         out, err = p.communicate() 
         ret = p.wait()
         if ret != 0:
-            print err, out
+            print(err, out)
             raise Exception(ret, out)
 
         self.paused = False        

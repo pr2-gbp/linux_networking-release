@@ -180,5 +180,5 @@ class LinksysTest(unittest.TestCase):
 if __name__ == '__main__':
     try:
         rostest.run('network_control_tests', 'linksys_test', LinksysTest)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt as e:
         pass

@@ -251,9 +251,9 @@ class DynreconfTest(unittest.TestCase):
 
         (expected_bw, expected_latency, expected_loss) = get_projected_link_metrics(bw_limit, latency, loss, 1500.0, bw_tx)
 
-        print "bw_limit: ", bw_limit, "loss: ", loss, "latency: ", latency, "bw_tx: ", bw_tx
-        print "meas_bw: ", test.bandwidth.avg(), " meas_latency: ", test.latency.avg()*1e3, " meas_loss: ", test.loss.avg()
-        print "exp_bw", expected_bw, " exp_latency: ", expected_latency * 1e3, " exp_loss: ", expected_loss
+        print("bw_limit: ", bw_limit, "loss: ", loss, "latency: ", latency, "bw_tx: ", bw_tx)
+        print("meas_bw: ", test.bandwidth.avg(), " meas_latency: ", test.latency.avg()*1e3, " meas_loss: ", test.loss.avg())
+        print("exp_bw", expected_bw, " exp_latency: ", expected_latency * 1e3, " exp_loss: ", expected_loss)
         self.assertTrue(test.bandwidth.avg() > expected_bw * 0.75  and test.bandwidth.avg() < expected_bw * 1.25,
                         "Expected measured bandwidth to be ~%.2fMbit/s, instead it was %.2fMbit/s"%
                         (expected_bw/1e6, test.bandwidth.avg()/1e6))
@@ -309,5 +309,5 @@ class DynreconfTest(unittest.TestCase):
 if __name__ == '__main__':
     try:
         rostest.run('network_control_tests', 'dynreconf_test', DynreconfTest)
-    except KeyboardInterrupt, e:
+    except KeyboardInterrupt as e:
         pass

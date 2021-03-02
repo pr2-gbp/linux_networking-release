@@ -58,9 +58,9 @@ if __name__ == '__main__':
 
     setup_hostapd_ap()
 
-    print "# Link capacity test"
-    print "# Packet size: %d bytes"%(pktsize)
-    print "# bitrate uplink_capacity downlink_capacity"
+    print("# Link capacity test")
+    print("# Packet size: %d bytes"%(pktsize))
+    print("# bitrate uplink_capacity downlink_capacity")
     for rate in bitrates:
-        print rate, run_link_capacity_test("up", rate), run_link_capacity_test("down", rate)
+        print(rate, run_link_capacity_test("up", rate), run_link_capacity_test("down", rate))
 

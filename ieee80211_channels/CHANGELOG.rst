@@ -2,6 +2,13 @@
 Changelog for package ieee80211_channels
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.0 (2021-03-02)
+------------------
+* Merge pull request `#6 <https://github.com/pr2/linux_networking/issues/6>`_ from k-okada/add_noetic_travis
+* L suffix is not allowed in python3
+* use 2to3 to convert print/except/raise/lambda for python3
+* Contributors: Kei Okada
+
 1.0.16 (2019-11-08)
 -------------------
 

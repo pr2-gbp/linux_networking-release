@@ -79,24 +79,24 @@ class WirelessInterface(DhcpInterface):
         try:
             self.essid = self.wifi.getEssid()
             self.diags.append(('ESSID', self.essid))
-        except Exception, e:
+        except Exception as e:
             if has_link:
                 had_exception_this_time = True
                 if self.had_exception_last_time:
                     traceback.print_exc(10)
-                    print
+                    print()
             self.diags.append(('ESSID', 'Error collecting data.'))
             self.essid = "###ERROR-COLLECTING-DATA###"
 
         try:
             self.bssid = mac_addr.pretty(self.wifi.getAPaddr())
             self.diags.append(('BSSID', self.bssid))
-        except Exception, e:
+        except Exception as e:
             if has_link:
                 had_exception_this_time = True
                 if self.had_exception_last_time:
                     traceback.print_exc(10)
-                    print
+                    print()
             self.bssid = "00:00:00:00:00:00"
             self.diags.append(('BSSID', 'Error collecting data.'))
 
@@ -104,24 +104,24 @@ class WirelessInterface(DhcpInterface):
             self.wifi_txpower = 10**(self.wifi.wireless_info.getTXPower().value/10.)
             self.diags.append(('TX Power (mW)', self.wifi_txpower))
             self.wifi_txpower = "%.1f mW"%self.wifi_txpower
-        except Exception, e:
+        except Exception as e:
             if str(e).find("Operation not supported") == -1 and has_link:
                 had_exception_this_time = True
                 if self.had_exception_last_time:
                     traceback.print_exc(10)
-                    print
+                    print()
             self.diags.append(('TX Power (mW)', 'Error collecting data.'))
             self.wifi_txpower = "unknown" 
 
         try:
             self.wifi_frequency = self.wifi.wireless_info.getFrequency().getFrequency()
             self.diags.append(('Frequency (Gz)', "%.4f"%(self.wifi_frequency/1e9)))
-        except Exception, e:
+        except Exception as e:
             if has_link:
                 had_exception_this_time = True
                 if self.had_exception_last_time:
                     traceback.print_exc(10)
-                    print
+                    print()
             self.wifi_frequency = 0
             self.diags.append(('Frequency', 'Error collecting data.'))
 
@@ -140,12 +140,12 @@ class WirelessInterface(DhcpInterface):
                 self.wifi_quality = quality
                 self.reliability = quality
                 got_stats = True
-            except Exception, e:
-                print "Error getting wireless stats on interface %s: %s"%(self.iface, str(e))
+            except Exception as e:
+                print("Error getting wireless stats on interface %s: %s"%(self.iface, str(e)))
         
         if not got_stats:
             #print self.prettyname, "could not collect wireless data", e
-            print
+            print()
             self.reliability = 0
             self.wifi_quality = -1
             self.wifi_noise = 10000
@@ -172,7 +172,7 @@ class WirelessInterface(DhcpInterface):
             self.wifi_rate = self.wifi._formatBitrate(self.wifi_rate)
         else:
             if has_link:
-                print "Unable to determine TX rate on interface", self.iface
+                print("Unable to determine TX rate on interface", self.iface)
                 self.diags.append(('TX Rate (Mbps)', 'Error collecting data.'))
             else:
                 self.diags.append(('TX Rate (Mbps)', 'Unknown'))
@@ -239,7 +239,7 @@ if __name__ == "__main__":
         non_daemon = sum(0 if t.daemon else 1 for t in threads)
         if non_daemon == 1:
             break
-        print
-        print "Remaining threads:", non_daemon, len(threads)
+        print()
+        print("Remaining threads:", non_daemon, len(threads))
         for t in threads:
-            print ("daemon: " if t.daemon else "regular:"), t.name
+            print(("daemon: " if t.daemon else "regular:"), t.name)
