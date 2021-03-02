@@ -1,0 +1,12 @@
+Source: ros-noetic-network-traffic-control
+Section: misc
+Priority: optional
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-catkin, ros-noetic-dynamic-reconfigure, ros-noetic-rospy
+Homepage: http://ros.org/wiki/network_traffic_control
+Standards-Version: 3.9.2
+
+Package: ros-noetic-network-traffic-control
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-dynamic-reconfigure, ros-noetic-rospy
+Description: A ROS node that allows control of network emulation parameters such as bandwidth, loss and latency for a Linux network interface.
