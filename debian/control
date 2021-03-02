@@ -1,0 +1,13 @@
+Source: ros-noetic-asmach-tutorials
+Section: misc
+Priority: optional
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-actionlib, ros-noetic-actionlib-msgs, ros-noetic-asmach, ros-noetic-catkin, ros-noetic-message-generation, ros-noetic-rospy, ros-noetic-smach-ros, ros-noetic-turtlesim
+Homepage: http://ros.org/wiki/smach_tutorials
+Standards-Version: 3.9.2
+
+Package: ros-noetic-asmach-tutorials
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-actionlib, ros-noetic-actionlib-msgs, ros-noetic-asmach, ros-noetic-rospy, ros-noetic-smach-ros, ros-noetic-turtlesim
+Description: This package containes numerous examples of how to use SMACH.
+ See the examples directory.
