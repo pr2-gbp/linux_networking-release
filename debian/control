@@ -1,0 +1,13 @@
+Source: ros-noetic-hostapd-access-point
+Section: misc
+Priority: optional
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-access-point-control, ros-noetic-catkin, ros-noetic-dynamic-reconfigure, ros-noetic-ieee80211-channels, ros-noetic-rospy
+Homepage: http://ros.org/wiki/hostapd_access_point
+Standards-Version: 3.9.2
+
+Package: ros-noetic-hostapd-access-point
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-access-point-control, ros-noetic-dynamic-reconfigure, ros-noetic-ieee80211-channels, ros-noetic-rospy
+Description: A ROS node that controls a hostapd-based access point.
+ It is mainly intended for use with a wireless network adapter running in master mode. It implements the dynamic_reconfigure interface defined in the [[access_point_control]] package.
