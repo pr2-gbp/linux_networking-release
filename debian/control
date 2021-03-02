@@ -1,0 +1,12 @@
+Source: ros-noetic-network-control-tests
+Section: misc
+Priority: optional
+Maintainer: Devon Ash <dash@clearpathrobotics.com>
+Build-Depends: debhelper (>= 9.0.0), ros-noetic-access-point-control, ros-noetic-catkin, ros-noetic-ddwrt-access-point, ros-noetic-dynamic-reconfigure, ros-noetic-hostapd-access-point, ros-noetic-linksys-access-point, ros-noetic-network-monitor-udp, ros-noetic-network-traffic-control, ros-noetic-rostest
+Homepage: http://ros.org/wiki/network_control_tests
+Standards-Version: 3.9.2
+
+Package: ros-noetic-network-control-tests
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-access-point-control, ros-noetic-ddwrt-access-point, ros-noetic-dynamic-reconfigure, ros-noetic-hostapd-access-point, ros-noetic-linksys-access-point, ros-noetic-network-monitor-udp, ros-noetic-network-traffic-control, ros-noetic-rostest
+Description: Test suite for the packages that are part of the &quot;WiFi Test Setup&quot; project: network_monitor_udp, network_traffic_control, hostapd_access_point, linksys_access_point, ddwrt_access_point.
