@@ -1,0 +1,102 @@
+ros-noetic-multi-interface-roam (1.1.0-1buster) buster; urgency=high
+
+  * Merge pull request #6 <https://github.com/pr2/linux_networking/issues/6> from k-okada/add_noetic_travis
+  * fix explicit relative imports for both python2/3
+  * add more from __future__ import print_function
+  * add from __future__ import print_function for python3
+  * add import multi_interface_roam. fix by https://github.com/PR2/linux_networking/pull/5
+  * add from __future__ import print_function for python2
+  * python3 uses import _thread
+  * L suffix is not allowed in python3
+  * use 2to3 to convert print/except/raise/lambda for python3
+  * multi_interface_roam/package.xml: use format3 for python3
+  * Revert "build/testing fixes for noetic compatibility (#5 <https://github.com/pr2/linux_networking/issues/5>)" (#7 <https://github.com/pr2/linux_networking/issues/7>)
+    This reverts commit a0282c1c0cc1ca883694c074c5daff832cc429b1.
+  * build/testing fixes for noetic compatibility (#5 <https://github.com/pr2/linux_networking/issues/5>)
+    * updated python scripts for python3 conventions (melodic/noetic compatibility)
+    * added python-twisted-core as a test dependency
+    * fixed python-twisted-core dependency for python3-twisted to make work with python3
+    Co-authored-by: Michael Görner <mailto:me@v4hn.de>
+  * Contributors: Dave Feil-Seifer, Kei Okada
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Mon, 01 Mar 2021 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.16-1buster) buster; urgency=high
+
+  * Merge pull request #4 <https://github.com/pr2/linux_networking/issues/4> from k-okada/add_travis
+    update travis.yml
+  * rm *.pyc
+  * add python-twisted-core to multi_interface_roam to pass the test
+  * Contributors: Kei Okada
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Thu, 07 Nov 2019 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.15-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Mon, 18 Mar 2019 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.13-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Sun, 17 Mar 2019 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.12-1buster) buster; urgency=high
+
+  * removed roslib declaration
+  * Contributors: TheDash
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Mon, 25 Feb 2019 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.9-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Mon, 13 Oct 2014 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.8-1buster) buster; urgency=high
+
+  * Removed rosbuild files
+  * Contributors: TheDash
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Thu, 09 Oct 2014 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.7-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Thu, 09 Oct 2014 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.6-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Thu, 09 Oct 2014 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.5-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Sun, 05 Oct 2014 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.4-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Thu, 02 Oct 2014 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.3-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Thu, 02 Oct 2014 15:00:00 -0000
+
+ros-noetic-multi-interface-roam (1.0.2-1buster) buster; urgency=high
+
+
+
+ -- Devon Ash <dash@clearpathrobotics.com>  Thu, 02 Oct 2014 15:00:00 -0000
+
+
